@@ -55,12 +55,12 @@ const login = ((req, res) => {
 
 
 
-
-//update profile
+//profile
 const profile = ((req, res) => {
   let userId = req.userData.id;
 
-  model.admin.findOne({ where: { id: userId }, attributes:["id","name","email"]}).then((result) => {
+  model.admin.findOne({ where: { id: userId },
+    attributes:["id","name","email"]}).then((result) => {
     if (result) {
       return res.status(200).json({
         data: result,
