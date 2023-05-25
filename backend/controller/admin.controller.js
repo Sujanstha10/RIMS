@@ -7,7 +7,6 @@ const jwt = require("jsonwebtoken");
 
 
 dotenv.config();
-console.log("_________-")
 
 
 
@@ -53,8 +52,31 @@ const login = ((req, res) => {
     });
   });
 });
+
+
+//update profile
+const profile = ((req, res) => {
+  let userId = req.userData.id;
+
+  model.admin.findOne({ where: { id: userId }, attributes:["id","name","email"]}).then((result) => {
+    if (result) {
+      return res.status(200).json({
+        data: result,
+      });
+    } else {
+      res.status(401).json({
+        message: "No user found",
+      });
+    }
+  })  .catch((error) => {
+    res.status(500).json({
+      messege: "Something went wrong!!",
+      error,
+    });
+  });;
+});
   
 
   module.exports= {
-    login
+    login,profile
   }
