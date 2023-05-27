@@ -5,18 +5,17 @@ import { API } from '../../../API';
 
 export const userLogin = createAsyncThunk('user/login',
     async (values, { rejectWithValue }) => {
+
         console.log(values);
 
 
 
         try {
 
-            const res = await axios.post(`${API}/auth/login`, values)
+            const res = await axios.post(`${API}/login`, values)
             console.log(res);
-            // console.log(res.data.token);
-            // setResponse(res.data.message)
 
-            return res.data
+            return res.data.token
 
         }
 
