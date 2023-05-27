@@ -1,12 +1,11 @@
 
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { BsEyeFill } from 'react-icons/bs'
-import { ImUser } from 'react-icons/im'
-import axios from 'axios'
+// import { BsEyeFill } from 'react-icons/bs'
+// import { ImUser } from 'react-icons/im'
+// import axios from 'axios'
 import { useFormik } from 'formik'
 import { loginSchmea } from '../schema'
-const apiUrl = process.env.REACT_APP_API_URL;
 
 const initialValues = { userName: '', password: '' };
 
@@ -17,36 +16,14 @@ const Login = () => {
     const { values, errors, handleBlur, touched, handleChange, handleSubmit } = useFormik({
         initialValues: initialValues, validationSchema: loginSchmea,
         onSubmit: async (values, action) => {
-            setResponse('')
-            // console.log(values);
-            try {
-                const res = await axios.post(`${apiUrl}auth/login`, values)
-                // console.log(data);
-                console.log(res);
-                // setResponse(res.data.message)
-                // login(res.data);
 
-                setTimeout(() => {
-                    navigate('/dashboard')
+            console.log(values);
 
-                }, 400);
-            }
-            catch (error) {
-                // console.log(error.message);
-                console.log(error);
-                setResponse(error.response.data.message || error.message)
-                // console.log(error.response.data.message);
-                console.log(error.response.data.message || error.message);
-                // setError(error.response.data.message);
-            }
 
 
         }
 
     });
-    // console.log(currUser);
-    // console.log(login);
-    // console.log(values);
 
 
 
@@ -56,30 +33,20 @@ const Login = () => {
 
 
 
-            <form className='flex flex-col sm:w-[30rem] md:w-[50rem]  border-2 m-auto sm:min-h-[25rem]  p-10 gap-6 shadow-2xl  rounded-[1em]' onSubmit={handleSubmit}>
+            <form className='flex flex-col w-[80%] sm:w-2/3 md:w-[50rem]   m-auto min-h-auto border-2  p-10 gap-3 shadow-2xl  rounded-md' onSubmit={handleSubmit}>
 
-                <section className='flex md:w-[95%] gap-[5rem] m-auto'>
-                    <div className='  w-[50%]'>
-                        <img src="http://inmas-rangpur.org/Content/img/signin-image.jpg" alt="error404" />
+                <section className='flex md:w-[95%] gap-[5rem] m-auto h-full'>
 
-
-                        <p className='mx-auto flex text-end h-[4rem]'>
+                    <div className='  w-[50%] hidden  md:flex'>
+                        <img className='hidden md:flex' src="http://inmas-rangpur.org/Content/img/signin-image.jpg" alt="error404" />
 
 
-
-                            <span className='flex flex-col justify-end'> Don't have an account? </span>
-
-                            <Link className='underline flex flex-col justify-end ' to='/register'> Register</Link>
-
-
-
-                        </p>
 
                     </div>
 
 
 
-                    <div className='w-[50%]'>
+                    <div className='md:w-[50%] w-full min-h-[60vh]'>
                         <h1 className='text-[2.1rem] mx-auto font-[900] font-sans'>Log In</h1>
 
 
@@ -100,10 +67,14 @@ const Login = () => {
                                 {errors.password && touched.password ? <p className='text-red-600'>{errors.password}</p> : null}
                             </aside>
 
-                            <p className='my-[1.4rem]'> <input type="checkbox" /> Remember me </p>
+                            {/* <p className='my-[1.4rem]'> <input type="checkbox" /> Remember me </p> */}
+                            <Link className='-mt-3 hover:underline text-blue-900' to='/forgotpassword'>Forgot password?</Link>
+
                             {response.length !== 0 && <p className='text-red-600 mx-auto my-[-2px]'>{response}</p>}
 
                             <button className='mx-auto w-full py-2 mt-[0.5rem] rounded-[0.5rem] text-white h-[3.4rem] border-2 bg-[#70abe6]' type='submit'>Log in</button>
+
+
                         </div>
 
 

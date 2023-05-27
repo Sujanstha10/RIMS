@@ -13,8 +13,7 @@ export const loginSchmea = Yup.object({
 
     password: Yup.string()
         .min(6, 'Password must be at least 6 characters long.')
-        .matches(/^(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])[0-9a-zA-Z!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]{8,}$/,
-            'Password must contain at least one number and one special character.')
+
         .required('Password is required.'),
 
 
