@@ -6,18 +6,25 @@ import { Link, useNavigate } from 'react-router-dom'
 // import axios from 'axios'
 import { useFormik } from 'formik'
 import { loginSchmea } from '../schema'
+import { useDispatch, useSelector } from 'react-redux'
+import { userLogin } from '../storage/admin/user/authAction'
 
-const initialValues = { userName: '', password: '' };
+const initialValues = { email: 'superadmin@gmail.com', password: 'Superadmin@123' };
+
 
 const Login = () => {
+
+    const dispatch = useDispatch()
     const navigate = useNavigate();
     const [response, setResponse] = useState('')
 
     const { values, errors, handleBlur, touched, handleChange, handleSubmit } = useFormik({
-        initialValues: initialValues, validationSchema: loginSchmea,
+        initialValues: initialValues,
+        // validationSchema: loginSchmea,
         onSubmit: async (values, action) => {
 
             console.log(values);
+            dispatch(userLogin(values))
 
 
 
@@ -56,9 +63,9 @@ const Login = () => {
 
 
                             <aside>
-                                <input type="text" placeholder='Your Name' className=' border-b-2 border-[#908c8ca0]  w-[100%] h-[2rem] mt-[2rem] outline-none' name='userName'
-                                    value={values.userName} onChange={handleChange} onBlur={handleBlur} />
-                                {errors.userName && touched.userName ? <p className='text-red-600'>{errors.userName}</p> : null}
+                                <input type="text" placeholder='Your Name' className=' border-b-2 border-[#908c8ca0]  w-[100%] h-[2rem] mt-[2rem] outline-none' name='email'
+                                    value={values.email} onChange={handleChange} onBlur={handleBlur} />
+                                {errors.email && touched.email ? <p className='text-red-600'>{errors.email}</p> : null}
                             </aside>
 
                             <aside>
@@ -70,7 +77,7 @@ const Login = () => {
                             {/* <p className='my-[1.4rem]'> <input type="checkbox" /> Remember me </p> */}
                             <Link className='-mt-3 hover:underline text-blue-900' to='/forgotpassword'>Forgot password?</Link>
 
-                            {response.length !== 0 && <p className='text-red-600 mx-auto my-[-2px]'>{response}</p>}
+                            {/* {response.length !== 0 && <p className='text-red-600 mx-auto my-[-2px]'>{response}</p>} */}
 
                             <button className='mx-auto w-full py-2 mt-[0.5rem] rounded-[0.5rem] text-white h-[3.4rem] border-2 bg-[#70abe6]' type='submit'>Log in</button>
 

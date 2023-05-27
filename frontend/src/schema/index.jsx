@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 
 
 export const loginSchmea = Yup.object({
-    userName: Yup.string()
+    email: Yup.string()
         .matches(/^[a-zA-Z]+$/, 'Username can only contain alphabetical characters.')
         .min(4, 'Username must be at least 4 characters long.')
         .max(15, 'Username cannot be longer than 15 characters.')
