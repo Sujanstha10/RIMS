@@ -4,6 +4,8 @@ const model = require("../models")
 const addsupplier = (req, res) => {
     const supplier = {
         supplierName:req.body.supplierName,
+        contactPerson:req.body.contactPerson,
+        contacNumber:req.body.contacNumber,
     };
     model.supplier.create(supplier)
       .then((Result) => {
@@ -81,8 +83,9 @@ const updatesupplier = (req, res) => {
     .then((exist) => {
       if (exist) {
         const editedsupplier = {
-          supplierName:req.body.supplierName,
-
+            supplierName:req.body.supplierName,
+            contactPerson:req.body.contactPerson,
+            contacNumber:req.body.contacNumber,
         };
         model.supplier
           .update(editedsupplier, { where: { id: req.params.id } })

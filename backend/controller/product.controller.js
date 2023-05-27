@@ -4,6 +4,11 @@ const model = require("../models")
 const addproduct = (req, res) => {
     const product = {
         productName:req.body.productName,
+        categoryId:req.body.categoryId,
+        quantity:req.body.quantity,
+        unitPrice:req.body.unitPrice,
+        supplierId:req.body.supplierId,
+        image:req.file ? req.file.path : null,
     };
     model.product.create(product)
       .then((Result) => {
@@ -81,7 +86,12 @@ const updateproduct = (req, res) => {
     .then((exist) => {
       if (exist) {
         const editedproduct = {
-          productName:req.body.productName,
+            productName:req.body.productName,
+            categoryId:req.body.categoryId,
+            quantity:req.body.quantity,
+            unitPrice:req.body.unitPrice,
+            supplierId:req.body.supplierId,
+            image:req.file ? req.file.path : null,
 
         };
         model.product

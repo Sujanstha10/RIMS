@@ -3,7 +3,10 @@ const model = require("../models")
 //add purchase 
 const addpurchase = (req, res) => {
     const purchase = {
-        purchaseName:req.body.purchaseName,
+        productId:req.body.productId,
+        quantity:req.body.quantity,
+        unitPrice:req.body.unitPrice,
+        purchaseDate:req.body.purchaseDate,
     };
     model.purchase.create(purchase)
       .then((Result) => {
@@ -81,7 +84,10 @@ const updatepurchase = (req, res) => {
     .then((exist) => {
       if (exist) {
         const editedpurchase = {
-          purchaseName:req.body.purchaseName,
+            productId:req.body.productId,
+            quantity:req.body.quantity,
+            unitPrice:req.body.unitPrice,
+            purchaseDate:req.body.purchaseDate,
 
         };
         model.purchase

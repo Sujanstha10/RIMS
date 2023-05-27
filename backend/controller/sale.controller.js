@@ -3,7 +3,10 @@ const model = require("../models")
 //add sale 
 const addsale = (req, res) => {
     const sale = {
-        saleName:req.body.saleName,
+        productId:req.body.productId,
+        quantity:req.body.quantity,
+        unitPrice:req.body.unitPrice,
+        saleDate:req.body.saleDate,
     };
     model.sale.create(sale)
       .then((Result) => {
@@ -81,7 +84,10 @@ const updatesale = (req, res) => {
     .then((exist) => {
       if (exist) {
         const editedsale = {
-          saleName:req.body.saleName,
+            productId:req.body.productId,
+            quantity:req.body.quantity,
+            unitPrice:req.body.unitPrice,
+            saleDate:req.body.saleDate,
 
         };
         model.sale
