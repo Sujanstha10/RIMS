@@ -25,4 +25,13 @@ app.use('/sale',sale)
 app.use('/supplier',supplier)
 app.use('/uploads', express.static(__dirname + '/uploads'));
 
+
+// sequelize.sync({force:true}).then((result)=>{
+//   console.log("migration successful")
+// }).catch(err=>{
+//   console.log(err );
+// })
+
+
+
 module.exports = app;
