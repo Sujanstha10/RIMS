@@ -8,7 +8,7 @@ const addsale = (req, res) => {
         unitPrice:req.body.unitPrice,
         saleDate:req.body.saleDate,
     };
-    model.sale.create(sale)
+    model.sales.create(sale)
       .then((Result) => {
         res.status(200).json({
           message: "sale added successfully",
@@ -24,7 +24,7 @@ const addsale = (req, res) => {
   };
   //read all sale
 const allsale = (req, res) => {
-  model.sale
+  model.sales
     .findAll()
     .then((result) => {
       res.status(200).json(result);
@@ -39,7 +39,7 @@ const allsale = (req, res) => {
 
 //read sale
 const showsale = (req, res) => {
-  model.sale
+  model.sales
     .findOne({ where: { id: req.params.id } })
     .then((result) => {
         if(result)
@@ -57,7 +57,7 @@ const showsale = (req, res) => {
 
 //delete sale
 const deletesale = (req, res) => {
-  model.sale
+  model.sales
     .destroy({ where: { id:req.params.id } })
     .then((result) => {
       if (result) {
@@ -79,7 +79,7 @@ const deletesale = (req, res) => {
 
 //update sale
 const updatesale = (req, res) => {
-  model.sale
+  model.sales
     .findOne({ where: { id: req.params.id } })
     .then((exist) => {
       if (exist) {
@@ -90,7 +90,7 @@ const updatesale = (req, res) => {
             saleDate:req.body.saleDate,
 
         };
-        model.sale
+        model.sales
           .update(editedsale, { where: { id: req.params.id } })
           .then((update) => {
             res.status(200).json({

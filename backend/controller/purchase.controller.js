@@ -8,7 +8,7 @@ const addpurchase = (req, res) => {
         unitPrice:req.body.unitPrice,
         purchaseDate:req.body.purchaseDate,
     };
-    model.purchase.create(purchase)
+    model.purchases.create(purchase)
       .then((Result) => {
         res.status(200).json({
           message: "purchase added successfully",
@@ -24,7 +24,7 @@ const addpurchase = (req, res) => {
   };
   //read all purchase
 const allpurchase = (req, res) => {
-  model.purchase
+  model.purchases
     .findAll()
     .then((result) => {
       res.status(200).json(result);
@@ -39,7 +39,7 @@ const allpurchase = (req, res) => {
 
 //read purchase
 const showpurchase = (req, res) => {
-  model.purchase
+  model.purchases
     .findOne({ where: { id: req.params.id } })
     .then((result) => {
         if(result)
@@ -57,7 +57,7 @@ const showpurchase = (req, res) => {
 
 //delete purchase
 const deletepurchase = (req, res) => {
-  model.purchase
+  model.purchases
     .destroy({ where: { id:req.params.id } })
     .then((result) => {
       if (result) {
@@ -79,7 +79,7 @@ const deletepurchase = (req, res) => {
 
 //update purchase
 const updatepurchase = (req, res) => {
-  model.purchase
+  model.purchases
     .findOne({ where: { id: req.params.id } })
     .then((exist) => {
       if (exist) {
@@ -90,7 +90,7 @@ const updatepurchase = (req, res) => {
             purchaseDate:req.body.purchaseDate,
 
         };
-        model.purchase
+        model.purchases
           .update(editedpurchase, { where: { id: req.params.id } })
           .then((update) => {
             res.status(200).json({

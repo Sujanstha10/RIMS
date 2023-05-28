@@ -10,7 +10,7 @@ const addproduct = (req, res) => {
         supplierId:req.body.supplierId,
         image:req.file ? req.file.path : null,
     };
-    model.product.create(product)
+    model.products.create(product)
       .then((Result) => {
         res.status(200).json({
           message: "product added successfully",
@@ -26,7 +26,7 @@ const addproduct = (req, res) => {
   };
   //read all product
 const allproduct = (req, res) => {
-  model.product
+  model.products
     .findAll()
     .then((result) => {
       res.status(200).json(result);
@@ -41,7 +41,7 @@ const allproduct = (req, res) => {
 
 //read product
 const showproduct = (req, res) => {
-  model.product
+  model.products
     .findOne({ where: { id: req.params.id } })
     .then((result) => {
         if(result)
@@ -59,7 +59,7 @@ const showproduct = (req, res) => {
 
 //delete product
 const deleteproduct = (req, res) => {
-  model.product
+  model.products
     .destroy({ where: { id:req.params.id } })
     .then((result) => {
       if (result) {
@@ -81,7 +81,7 @@ const deleteproduct = (req, res) => {
 
 //update product
 const updateproduct = (req, res) => {
-  model.product
+  model.products
     .findOne({ where: { id: req.params.id } })
     .then((exist) => {
       if (exist) {
@@ -94,7 +94,7 @@ const updateproduct = (req, res) => {
             image:req.file ? req.file.path : null,
 
         };
-        model.product
+        model.products
           .update(editedproduct, { where: { id: req.params.id } })
           .then((update) => {
             res.status(200).json({

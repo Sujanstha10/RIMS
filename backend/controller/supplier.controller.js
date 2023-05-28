@@ -7,7 +7,7 @@ const addsupplier = (req, res) => {
         contactPerson:req.body.contactPerson,
         contacNumber:req.body.contacNumber,
     };
-    model.supplier.create(supplier)
+    model.suppliers.create(supplier)
       .then((Result) => {
         res.status(200).json({
           message: "supplier added successfully",
@@ -23,7 +23,7 @@ const addsupplier = (req, res) => {
   };
   //read all supplier
 const allsupplier = (req, res) => {
-  model.supplier
+  model.suppliers
     .findAll()
     .then((result) => {
       res.status(200).json(result);
@@ -38,7 +38,7 @@ const allsupplier = (req, res) => {
 
 //read supplier
 const showsupplier = (req, res) => {
-  model.supplier
+  model.suppliers
     .findOne({ where: { id: req.params.id } })
     .then((result) => {
         if(result)
@@ -56,7 +56,7 @@ const showsupplier = (req, res) => {
 
 //delete supplier
 const deletesupplier = (req, res) => {
-  model.supplier
+  model.suppliers
     .destroy({ where: { id:req.params.id } })
     .then((result) => {
       if (result) {
@@ -78,7 +78,7 @@ const deletesupplier = (req, res) => {
 
 //update supplier
 const updatesupplier = (req, res) => {
-  model.supplier
+  model.suppliers
     .findOne({ where: { id: req.params.id } })
     .then((exist) => {
       if (exist) {
@@ -87,7 +87,7 @@ const updatesupplier = (req, res) => {
             contactPerson:req.body.contactPerson,
             contacNumber:req.body.contacNumber,
         };
-        model.supplier
+        model.suppliers
           .update(editedsupplier, { where: { id: req.params.id } })
           .then((update) => {
             res.status(200).json({
