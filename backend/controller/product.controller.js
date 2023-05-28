@@ -1,30 +1,31 @@
-const model = require("../models")
+const model = require("../models");
 
-//add product 
+//add product
 const addproduct = (req, res) => {
-    const product = {
-        productName:req.body.productName,
-        categoryId:req.body.categoryId,
-        quantity:req.body.quantity,
-        unitPrice:req.body.unitPrice,
-        supplierId:req.body.supplierId,
-        image:req.file ? req.file.path : null,
-    };
-    model.products.create(product)
-      .then((Result) => {
-        res.status(200).json({
-          message: "product added successfully",
-          result: product,
-        });
-      })
-      .catch((err) => {
-        res.status(500).json({
-          message: "Something went wrong",
-          err,
-        });
-      });
+  const product = {
+    productName: req.body.productName,
+    categoryId: req.body.categoryId,
+    quantity: req.body.quantity,
+    unitPrice: req.body.unitPrice,
+    supplierId: req.body.supplierId,
+    image: req.file ? req.file.path : null,
   };
-  //read all product
+  model.products
+    .create(product)
+    .then((Result) => {
+      res.status(200).json({
+        message: "product added successfully",
+        result: product,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Something went wrong",
+        err,
+      });
+    });
+};
+//read all product
 const allproduct = (req, res) => {
   model.products
     .findAll()
@@ -44,10 +45,8 @@ const showproduct = (req, res) => {
   model.products
     .findOne({ where: { id: req.params.id } })
     .then((result) => {
-        if(result)
-      res.status(200).json(result);
-      else
-      res.status(401).json({message:"product not found"});
+      if (result) res.status(200).json(result);
+      else res.status(401).json({ message: "product not found" });
     })
     .catch((error) => {
       res.status(500).json({
@@ -60,7 +59,7 @@ const showproduct = (req, res) => {
 //delete product
 const deleteproduct = (req, res) => {
   model.products
-    .destroy({ where: { id:req.params.id } })
+    .destroy({ where: { id: req.params.id } })
     .then((result) => {
       if (result) {
         res.status(200).json({
@@ -86,13 +85,12 @@ const updateproduct = (req, res) => {
     .then((exist) => {
       if (exist) {
         const editedproduct = {
-            productName:req.body.productName,
-            categoryId:req.body.categoryId,
-            quantity:req.body.quantity,
-            unitPrice:req.body.unitPrice,
-            supplierId:req.body.supplierId,
-            image:req.file ? req.file.path : null,
-
+          productName: req.body.productName,
+          categoryId: req.body.categoryId,
+          quantity: req.body.quantity,
+          unitPrice: req.body.unitPrice,
+          supplierId: req.body.supplierId,
+          image: req.file ? req.file.path : null,
         };
         model.products
           .update(editedproduct, { where: { id: req.params.id } })
@@ -122,7 +120,10 @@ const updateproduct = (req, res) => {
     });
 };
 
-
-  module.exports={
-    addproduct,allproduct,showproduct,deleteproduct,updateproduct
-  }
+module.exports = {
+  addproduct,
+  allproduct,
+  showproduct,
+  deleteproduct,
+  updateproduct,
+};
