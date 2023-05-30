@@ -12,7 +12,7 @@ const Headerstats = () => {
             <div className='flex flex-wrap'>
               <div className='w-full px-4 pb-10 lg:w-6/12 xl:w-3/12'>
                 <CardStats
-                  statSubtitle='Users'
+                  statSubtitle='Customers'
                   statTitle='250'
                   statArrow='up'
                   statPercent='3.48'
@@ -24,7 +24,7 @@ const Headerstats = () => {
               </div>
               <div className='w-full px-4 lg:w-6/12 xl:w-3/12'>
                 <CardStats
-                  statSubtitle='Total Bikes'
+                  statSubtitle='Total '
                   statTitle='50'
                   statArrow='down'
                   statPercent='3.48'
@@ -36,7 +36,7 @@ const Headerstats = () => {
               </div>
               <div className='w-full px-4 lg:w-6/12 xl:w-3/12'>
                 <CardStats
-                  statSubtitle='Available Bikes'
+                  statSubtitle='Available '
                   statTitle='20'
                   statArrow='down'
                   statPercent='1.10'
