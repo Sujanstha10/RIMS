@@ -5,12 +5,12 @@ const Headerstats = () => {
   return (
     <>
       {/* Header */}
-      <div className='relative pt-12 pb-32 bg-orange md:pt-32'>
+      <div className='relative pt-12 pb-30 bg-cyan-200 md:pt-20'>
         <div className='w-full px-4 mx-auto md:px-10'>
           <div>
             {/* Card stats */}
             <div className='flex flex-wrap'>
-              <div className='w-full px-4 lg:w-6/12 xl:w-3/12'>
+              <div className='w-full px-4 pb-10 lg:w-6/12 xl:w-3/12'>
                 <CardStats
                   statSubtitle='Users'
                   statTitle='250'

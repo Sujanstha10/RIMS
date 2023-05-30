@@ -17,11 +17,11 @@ const Dashboard = () => {
     <div className=''>
       <div className=''>
         <Sidebar />
-        <div className='relative md:ml-64 bg-blueGray-100'>
+        <div className='relative md:ml-64'>
           <Dashboardnavbar />
           {/* Header */}
           <Headerstats />
-          <div className='w-full px-4 mx-auto -m-24 md:px-10'>
+          <div className='w-full px-4 pt-20 mx-auto -m-24 '>
             <Routes>
               <Route path='/' element={<DashboardHome />} />
               <Route path='/users' element={<User />} />
