@@ -8,7 +8,7 @@ const Dashboardnavbar = () => {
         <div className='flex flex-wrap items-center justify-between w-full px-4 mx-autp md:flex-nowrap md:px-10'>
           {/* Brand */}
           <a
-            className='hidden text-sm font-semibold text-white uppercase lg:inline-block'
+            className='hidden text-sm font-semibold text-black uppercase lg:inline-block'
             href='#pablo'
             onClick={(e) => e.preventDefault()}
           >
