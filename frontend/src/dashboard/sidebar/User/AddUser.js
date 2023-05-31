@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { Formik, ErrorMessage } from "formik";
 // import { userRegister } from "../../../redux/features/User/authActions";
 import { clearFields } from "../../../redux/features/User/authSlice";
-// import { ValidateUser } from "../../Common/Validation";
-import Spinner from "../../Helper/Spinner";
+import Spinner from "../../../Helper/Spinner";
+import { ValidateUser } from "../../../common/Validation";
 import { useEffect } from "react";
 import AddEditWrapper from "../../Common/AddEditWrapper";
 function Adduser() {
@@ -55,7 +55,7 @@ function Adduser() {
           formdata.append("password", values.password);
           formdata.append("confirmPassword", values.confirmPassword);
           formdata.append("email", values.email);
-          await dispatch(userRegister(formdata));
+          // await dispatch(userRegister(formdata));
           await dispatch(clearFields());
         }}
       >
