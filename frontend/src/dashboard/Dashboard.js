@@ -9,6 +9,7 @@ import Product from "./sidebar/Products/Product";
 import AddProduct from "./sidebar/Products/AddProduct";
 import DashboardHome from "./DashboardHome";
 import EditProduct from "./sidebar/Products/EditProduct";
+import AddUser from "./sidebar/User/AddUser";
 
 const Dashboard = () => {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ const Dashboard = () => {
               <Route path='/products' element={<Product />} />
               <Route path='/products/add' element={<AddProduct />} />
               <Route path='/products/edit/:id' element={<EditProduct />} />
+              <Route path='/users/add' element={<AddUser />} />
             </Routes>
           </div>
         </div>

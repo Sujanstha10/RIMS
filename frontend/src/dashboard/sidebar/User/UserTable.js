@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import DeleteModal from "../../common/Delete";
+import DeleteModal from "../../Common/Delete";
 import { useDispatch, useSelector } from "react-redux";
 // import { userAll } from "../../../redux/features/User/authActions";
 import Spinner from "../../../Helper/Spinner";
@@ -15,16 +15,16 @@ const UserTable = () => {
       id: 1,
       name: "Aashish",
       email: "aashish@gmail.com",
-      contact: "874748",
-      gender: "male",
+      address: "874748",
+      phone_no: "male",
       role: "admin",
     },
     {
       id: 2,
       name: "Aashish",
       email: "aashish@gmail.com",
-      contact: "874748",
-      gender: "male",
+      address: "874748",
+      phone_no: "male",
       role: "admin",
     },
   ];
@@ -68,7 +68,14 @@ const UserTable = () => {
                 "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700"
               }
             >
-              Role
+              Address
+            </th>
+            <th
+              className={
+                "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700"
+              }
+            >
+              Phone_no
             </th>
             <th
               className={
@@ -101,7 +108,10 @@ const UserTable = () => {
                   </td>
 
                   <td className='items-center p-4 px-6 text-center align-middle border-t-0 border-l-0 border-r-0 text-md whitespace-nowrap'>
-                    {user.role}
+                    {user.address}
+                  </td>
+                  <td className='items-center p-4 px-6 text-center align-middle border-t-0 border-l-0 border-r-0 text-md whitespace-nowrap'>
+                    {user.phone_no}
                   </td>
                   <td className='p-4 px-6 text-xs align-middle border-t-0 border-l-0 border-r-0 whitespace-nowrap'>
                     <div className='flex justify-center'>

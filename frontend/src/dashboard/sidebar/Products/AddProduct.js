@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Formik, ErrorMessage } from "formik";
 import { ValidateBikeAdd } from "../../../common/Validation";
-import AddEditWrapper from "../../common/AddEditWrapper";
+import AddEditWrapper from "../../Common/AddEditWrapper";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addProduct } from "../../../redux/features/Products/productAction";
@@ -32,12 +32,12 @@ const AddProduct = () => {
 
   return (
     <AddEditWrapper
-      title='Bikes'
+      title='Product'
       error={error}
       method='create'
       success={success}
       handleBack={handleBack}
-      backlink='/dashboard/bikes'
+      backlink='/dashboard/products'
     >
       <Formik
         initialValues={{
@@ -61,7 +61,7 @@ const AddProduct = () => {
         {(props) => (
           <form onSubmit={props.handleSubmit} className='bg-transparent'>
             <h6 className='mt-3 mb-6 text-sm font-bold text-black uppercase'>
-              Products Information
+              Product Information
             </h6>
             <div className='flex flex-wrap'>
               <div className='w-full px-4 lg:w-6/12'>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Formik, ErrorMessage } from "formik";
 import { ValidateBikeAdd } from "../../../common/Validation";
-import AddEditWrapper from "../../common/AddEditWrapper";
+import AddEditWrapper from "../../Common/AddEditWrapper";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../../../Helper/Spinner";

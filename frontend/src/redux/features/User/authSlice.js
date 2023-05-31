@@ -63,18 +63,19 @@ const authSlice = createSlice({
     },
 
     // get logged in  user
-    [LoggedInUser.pending]: (state) => {
-      state.loading = true;
-      state.error = null;
-    },
-    [LoggedInUser.fulfilled]: (state, { payload }) => {
-      state.loading = false;
-      state.userInfo = payload;
-    },
-    [LoggedInUser.rejected]: (state, { payload }) => {
-      state.loading = false;
-      state.error = payload;
-    },
+    // [LoggedInUser.pending]: (state) => {
+    //   state.loading = true;
+    //   state.error = null;
+    // },
+    // [LoggedInUser.fulfilled]: (state, { payload }) => {
+    //   state.loading = false;
+    //   state.userInfo = payload;
+    //   console.log(state.userInfo, "authSlice loggedinuser");
+    // },
+    // [LoggedInUser.rejected]: (state, { payload }) => {
+    //   state.loading = false;
+    //   state.error = payload;
+    // },
 
     // register user
     [userRegister.pending]: (state) => {
