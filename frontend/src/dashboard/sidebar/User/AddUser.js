@@ -5,7 +5,7 @@ import { Formik, ErrorMessage } from "formik";
 // import { userRegister } from "../../../redux/features/User/authActions";
 import { clearFields } from "../../../redux/features/User/authSlice";
 import Spinner from "../../../Helper/Spinner";
-import { ValidateUser } from "../../../common/Validation";
+import { ValidateUser } from "../../../Validation/Validation";
 import { useEffect } from "react";
 import AddEditWrapper from "../../Common/AddEditWrapper";
 function Adduser() {
