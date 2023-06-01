@@ -8,16 +8,6 @@ export const ValidateUser = Yup.object().shape({
     .min(5, "Username must be at least 5 characters long.")
     .max(15, "Username cannot be longer than 15 characters.")
     .required("*Name is required"),
-  password: Yup.string()
-    .min(6, "Password must be at least 6 characters long.")
-    .matches(
-      /^(?=.*\d)(?=.*[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?])[0-9a-zA-Z!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]{8,}$/,
-      "Password must contain at least one number and one special character."
-    )
-    .required("*Password is required"),
-  confirmPassword: Yup.string()
-    .oneOf([Yup.ref("password"), null], "Passwords must match")
-    .required("*Confirm password required"),
   email: Yup.string()
     .email("*Must be in email format")
     .matches(
@@ -25,6 +15,12 @@ export const ValidateUser = Yup.object().shape({
       "Email must have '@' followed by '.com'."
     )
     .required("Email is required."),
+  contact: Yup.number()
+    .typeError("Enter a valid phone number")
+    .positive("Phone number can't start with a minus")
+    .integer("Phone number can't include a decimal point")
+    .min(8)
+    .required("Phone number is required"),
 });
 export const ValidateBikeAdd = Yup.object().shape({
   productName: Yup.string().required("*Product name is required"),
