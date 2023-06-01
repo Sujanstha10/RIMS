@@ -2,19 +2,14 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Formik, ErrorMessage } from "formik";
-// import { userRegister } from "../../../redux/features/User/authActions";
-import { clearFields } from "../../../redux/features/User/authSlice";
+import { customerRegister } from "../../../redux/features/Customer/customerAction";
+import { clearFields } from "../../../redux/features/Customer/customerSlice";
 import Spinner from "../../../Helper/Spinner";
 import { ValidateUser } from "../../../Validation/Validation";
 import { useEffect } from "react";
 import AddEditWrapper from "../../Common/AddEditWrapper";
 function Adduser() {
   const navigate = useNavigate();
-  const [selectedImage, setSelectedImage] = useState();
-  const onImageChange = (event, setFieldValue) => {
-    setFieldValue("image", event.target.files[0]);
-    setSelectedImage(URL.createObjectURL(event.target.files[0]));
-  };
 
   const handleBack = async () => {
     navigate(-1);
@@ -34,35 +29,30 @@ function Adduser() {
       method='create'
       success={success}
       handleBack={handleBack}
-      backlink='/admin/user'
+      backlink='/dashboards/customers'
     >
       <Formik
         initialValues={{
           name: "",
           email: "",
           contact: "",
-          password: "",
-          confirmPassword: "",
-          gender: "",
+          address: "",
         }}
         validationSchema={ValidateUser}
         onSubmit={async (values, actions) => {
           let formdata = new FormData();
           formdata.append("name", values.name);
           formdata.append("contact", values.contact);
-          formdata.append("gender", values.gender);
-          formdata.append("image", values.image);
-          formdata.append("password", values.password);
-          formdata.append("confirmPassword", values.confirmPassword);
+          formdata.append("address", values.address);
           formdata.append("email", values.email);
-          // await dispatch(userRegister(formdata));
+          await dispatch(customerRegister(formdata));
           await dispatch(clearFields());
         }}
       >
         {(props) => (
           <form onSubmit={props.handleSubmit}>
             <h6 className='mt-3 mb-6 text-sm font-bold uppercase text-blueGray-400'>
-              User Information
+              Customer Information
             </h6>
             <div className='flex flex-wrap'>
               <div className='w-full px-3 py-3 lg:w-6/12'>
@@ -113,6 +103,27 @@ function Adduser() {
                     className='block mb-2 text-xs font-bold uppercase text-blueGray-600'
                     htmlFor='grid-password'
                   >
+                    Address
+                  </label>
+                  <input
+                    type='text'
+                    className='w-full px-3 py-3 text-sm transition-all duration-150 ease-linear bg-white border-0 rounded shadow placeholder-blueGray-300 text-blueGray-600 focus:outline-none focus:ring'
+                    name='address'
+                    onChange={props.handleChange}
+                    onBlur={props.handleBlur}
+                    value={props.values.address || ""}
+                  />
+                </div>
+                <span className='text-red-500 error'>
+                  <ErrorMessage name='address' />
+                </span>
+              </div>
+              <div className='w-full px-3 py-3 lg:w-6/12'>
+                <div className='relative w-full mb-3'>
+                  <label
+                    className='block mb-2 text-xs font-bold uppercase text-blueGray-600'
+                    htmlFor='grid-password'
+                  >
                     Contact Number
                   </label>
                   <input
@@ -128,109 +139,6 @@ function Adduser() {
                   </span>
                 </div>
               </div>
-              <div className='w-full px-3 py-3 lg:w-6/12'>
-                <div className='relative w-full mb-3'>
-                  <label
-                    className='block mb-2 text-xs font-bold uppercase text-blueGray-600'
-                    htmlFor='grid-password'
-                  >
-                    Password
-                  </label>
-                  <input
-                    type='password'
-                    className='w-full px-3 py-3 text-sm transition-all duration-150 ease-linear bg-white border-0 rounded shadow placeholder-blueGray-300 text-blueGray-600 focus:outline-none focus:ring'
-                    name='password'
-                    onChange={props.handleChange}
-                    onBlur={props.handleBlur}
-                    value={props.values.password || ""}
-                  />
-                  <span className='text-red-500 error'>
-                    <ErrorMessage name='password' />
-                  </span>
-                </div>
-              </div>
-              <div className='w-full px-3 py-3 lg:w-6/12'>
-                <div className='relative w-full mb-3'>
-                  <label
-                    className='block mb-2 text-xs font-bold uppercase text-blueGray-600'
-                    htmlFor='grid-password'
-                  >
-                    Confirm Password
-                  </label>
-                  <input
-                    type='password'
-                    className='w-full px-3 py-3 text-sm transition-all duration-150 ease-linear bg-white border-0 rounded shadow placeholder-blueGray-300 text-blueGray-600 focus:outline-none'
-                    name='confirmPassword'
-                    onChange={props.handleChange}
-                    onBlur={props.handleBlur}
-                    value={props.values.confirmPassword || ""}
-                  />
-                  <span className='text-red-500 error'>
-                    <ErrorMessage name='confirmPassword' />
-                  </span>
-                </div>
-              </div>
-              <div className='w-full px-3 py-3 lg:w-3/12'>
-                <div className='relative w-full mb-3 '>
-                  <label
-                    className='block mb-2 text-xs font-bold uppercase text-blueGray-600'
-                    htmlFor='grid-password'
-                  >
-                    Image
-                  </label>
-                  <input
-                    type='file'
-                    accept='image/*'
-                    className='w-full px-3 py-3 text-sm transition-all duration-150 ease-linear bg-white border-0 rounded shadow placeholder-blueGray-300 text-blueGray-600 focus:outline-none focus:ring'
-                    onChange={(event) =>
-                      onImageChange(event, props.setFieldValue)
-                    }
-                    onBlur={props.handleBlur}
-                    autoComplete='off'
-                  />
-                </div>
-                <span className='text-red-500 error'>
-                  <ErrorMessage name='fullName' />
-                </span>
-              </div>
-              <div className='px-4 lg:w-3/12'>
-                {selectedImage && (
-                  <div className='relative mt-4 border w-28 h-28'>
-                    <img
-                      src={selectedImage}
-                      height='80'
-                      width='80'
-                      alt='Thumb'
-                    />
-                  </div>
-                )}
-              </div>
-              <div className='w-full px-3 py-3 lg:w-6/12'>
-                <div className='relative w-full mb-3'>
-                  <label
-                    className='block mb-2 text-xs font-bold uppercase text-blueGray-600'
-                    htmlFor='grid-password'
-                  >
-                    Gender
-                  </label>
-                  <select
-                    className='w-full px-3 py-3 text-sm transition-all duration-150 ease-linear bg-white border-0 rounded shadow placeholder-blueGray-300 text-blueGray-600 focus:outline-none'
-                    name='gender'
-                    onChange={props.handleChange}
-                    onBlur={props.handleBlur}
-                    value={props.values.gender}
-                    autoComplete='off'
-                  >
-                    <option>Select</option>
-                    <option value='Male'>male</option>
-                    <option value='Female'>female</option>
-                    <option value='other'>Other</option>
-                  </select>
-                </div>
-                <span className='text-red-500 error'>
-                  <ErrorMessage name='gender' />
-                </span>
-              </div>
             </div>
             <hr className='mt-6 border-b-1 border-blueGray-300' />
             <div className='w-full px-3 py-3 lg:w-6/12'>
@@ -241,7 +149,7 @@ function Adduser() {
                   <button
                     disabled={loading}
                     type='submit'
-                    className='px-4 py-2 mr-1 text-xs font-bold text-white uppercase transition-all duration-150 ease-linear rounded shadow outline-none bg-lightBlue-500 active:bg-lightBlue-600 hover:shadow-md focus:outline-none'
+                    className='px-4 py-2 mr-1 text-xs font-bold text-white uppercase transition-all duration-150 ease-linear bg-blue-400 rounded shadow outline-none bg-lightBlue-500 hover:shadow-md focus:outline-none'
                   >
                     Register
                   </button>

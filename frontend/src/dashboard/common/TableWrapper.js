@@ -18,7 +18,7 @@ const TableWrapper = ({
       {success && toast.success(`${title} ${method} sucessfully`)}
       <div className='px-6 py-6 mb-0 bg-white rounded-t'>
         <div className='flex justify-between text-center'>
-          <h6 className='text-xl font-bold text-blueGray-700'>{title}</h6>
+          <h6 className='text-xl font-bold '>{title}</h6>
           <Link
             className='px-4 py-2 mr-1 text-xs font-bold text-white uppercase transition-all duration-150 ease-linear bg-blue-400 rounded shadow outline-none active:bg-red-600 hover:shadow-md focus:outline-none'
             to={addlink}
