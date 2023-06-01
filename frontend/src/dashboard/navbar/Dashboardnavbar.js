@@ -4,8 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
-import { logout } from "../../redux/features/User/authSlice";
-
+import { logout } from "../../storage/admin/user/authSlice";
 const Dashboardnavbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -43,7 +42,7 @@ const Dashboardnavbar = () => {
                   />
                 </div>
                 <img
-                  src='../sumit.jpg'
+                  src='../sujan.jpg'
                   alt=''
                   className='w-10 h-10 ml-2 mr-1 rounded-full'
                 />

@@ -24,8 +24,8 @@ export default function Sidebar() {
           </button>
           {/* Brand */}
           <Link
-            className='inline-block p-4 px-0 mr-0 text-sm font-bold text-left text-black uppercase md:block md:pb-2 whitespace-nowrap'
-            to='/'
+            className='inline-block p-4 px-0 mr-0 text-2xl font-extrabold text-left text-black uppercase md:block md:pb-2 whitespace-nowrap'
+            to='#'
           >
             RIMS
           </Link>
@@ -71,7 +71,7 @@ export default function Sidebar() {
             {/* Divider */}
             <hr className='my-4 md:min-w-full' />
             {/* Heading */}
-            <h6 className='block pt-1 pb-4 text-xs font-bold text-black no-underline uppercase md:min-w-full'>
+            <h6 className='block pt-1 pb-4 text-base font-bold text-black no-underline uppercase md:min-w-full'>
               All datas
             </h6>
             {/* Navigation */}
@@ -80,7 +80,7 @@ export default function Sidebar() {
               <li className='items-center'>
                 <Link
                   className='flex items-center py-3 text-xs font-bold uppercase'
-                  to='/dashboard/users'
+                  to='/dashboard/customers'
                 >
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
@@ -134,14 +134,14 @@ export default function Sidebar() {
                     xmlns='http://www.w3.org/2000/svg'
                     fill='none'
                     viewBox='0 0 24 24'
-                    strokeWidth={1.5}
+                    stroke-width='1.5'
                     stroke='currentColor'
-                    className='w-6 h-6 mr-2'
+                    class='w-6 h-6 mr-2'
                   >
                     <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      d='M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z'
+                      stroke-linecap='round'
+                      stroke-linejoin='round'
+                      d='M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z'
                     />
                   </svg>
                   Contact
