@@ -7,6 +7,7 @@ const product = require("./route/product.route");
 const purchase = require("./route/purchase.route");
 const sale = require("./route/sale.route");
 const supplier = require("./route/supplier.route");
+const customer = require("./route/cusotmer.route");
 
 const app = express();
 const cors = require("cors");
@@ -21,6 +22,7 @@ app.use("/product", product);
 app.use("/purchase", purchase);
 app.use("/sale", sale);
 app.use("/supplier", supplier);
+app.use("/customer", customer);
 app.use("/uploads", express.static(__dirname + "/uploads"));
 
 
