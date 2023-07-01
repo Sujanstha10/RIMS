@@ -1,18 +1,28 @@
 /*eslint-disable*/
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 // import NotificationDropdown from "../../Components/Dropdowns/NotificationDropdown.js";
 // import UserDropdown from "../../Components/Dropdowns/UserDropdown.js";
 // import Spinner from "../../Helper/Spinner.js";
+import { MdOutlineDashboardCustomize } from 'react-icons/md'
 
 export default function Sidebar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
   const { userInfo } = useSelector((state) => state.auth);
+  const [activePathname, setActivePathname] = React.useState("");
+
   //   if (userInfo) {
+  const { pathname } = useLocation()
+
+
+  useEffect(() => {
+
+  }, [])
+
   return (
     <>
-      <nav className='flex-wrap items-center justify-between px-6 py-4 text-black shadow-xl relativeflex bg-sky-300 md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden md:w-64'>
+      <nav className='flex-wrap items-center justify-between px-6 py-4 text- shadow-xl relativeflex bg-[rgb(4,23,55)] text-white md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden md:w-64'>
         <div className='flex flex-wrap items-center justify-between w-full px-0 mx-auto md:flex-col md:items-stretch md:min-h-full md:flex-nowrap'>
           {/* Toggler */}
           <button
@@ -24,14 +34,14 @@ export default function Sidebar() {
           </button>
           {/* Brand */}
           <Link
-            className='inline-block p-4 px-0 mr-0 text-2xl font-extrabold text-left text-black uppercase md:block md:pb-2 whitespace-nowrap'
+            className='inline-block p-4 px-0 mr-0 text-2xl font-extrabold text-left text-blue-600 tracking-wider uppercase md:block md:pb-2 whitespace-nowrap'
             to='#'
           >
             RIMS
           </Link>
           <div
             className={
-              "md:flex md:flex-col md:items-stretch md:opacity-100 md:relative  md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded " +
+              "md:flex  md:flex-col md:items-stretch md:opacity-100 md:relative  md:shadow-none shadow absolute top-0 left-0 right-0 z-40 overflow-y-auto overflow-x-hidden h-auto items-center flex-1 rounded " +
               collapseShow
             }
           >
@@ -40,7 +50,7 @@ export default function Sidebar() {
               <div className='flex flex-wrap'>
                 <div className='w-6/12'>
                   <Link
-                    className='inline-block px-0 mr-0 text-sm font-bold text-left text-black uppercase md:block whitespace-nowrap'
+                    className='inline-block px-0 mr-0 text-sm font-bold text-left text-orange uppercase md:block whitespace-nowrap'
                     to='/'
                   >
                     RIMS
@@ -69,14 +79,16 @@ export default function Sidebar() {
             </form>
 
             {/* Divider */}
-            <hr className='my-4 md:min-w-full' />
+            <hr className='my-4 md:min-w-full ' />
             {/* Heading */}
-            <h6 className='block pt-1 pb-4 text-base font-bold text-black no-underline uppercase md:min-w-full'>
-              All datas
-            </h6>
+            <Link to='/dashboard' className='-ml-3 py-2 rounded-lg text-lg font-bold w-fit pl-5 pr-5  bg-[rgb(57,99,173)] text-gray-200 no-underline   cursor-pointer mb-6 mt-2 flex items-center gap-2'>
+              <MdOutlineDashboardCustomize size={25} className="text-white" />
+              Dashboard
+            </Link>
+
             {/* Navigation */}
 
-            <ul className='flex flex-col list-none md:flex-col md:min-w-full md:mb-4'>
+            <ul className='flex flex-col list-none md:flex-col md:min-w-full md:mb-4 '>
               <li className='items-center'>
                 <Link
                   className='flex items-center py-3 text-xs font-bold uppercase'

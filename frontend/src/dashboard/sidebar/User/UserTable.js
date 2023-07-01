@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import DeleteModal from "../../Common/Delete";
+import DeleteModal from "../../common/Delete";
 import { useDispatch, useSelector } from "react-redux";
 // import { userAll } from "../../../redux/features/User/authActions";
 import Spinner from "../../../Helper/Spinner";
