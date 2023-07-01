@@ -10,11 +10,11 @@ const addproduct = (req, res) => {
     supplierId: req.body.supplierId,
     image: req.file ? req.file.path : null,
   };
-  
-  model.products.findOne({where:{productName:req.body.productName}}).then((exist)=>{
-    if(exist){
+
+  model.products.findOne({ where: { productName: req.body.productName } }).then((exist) => {
+    if (exist) {
       addStock
-    }else{
+    } else {
       model.products
         .create(product)
         .then((Result) => {
@@ -34,30 +34,30 @@ const addproduct = (req, res) => {
   })
 };
 
-const addStock = (req,res)=>{
+const addStock = (req, res) => {
   model.products
-  .findOne({where:{id: req.params.id}})
-  .then((result) => {
-    if(result){
-      const existingQuantity = result.quantity
-      const newQuantity = existingQuantity + req.body.quantity
-      model.products
-      .update({quantity:newQuantity}, { where: { id: req.params.id } })
-      .then((update) => {
-        res.status(200).json({
-          messege: "stock updated succcessfully!",
-          update
-        });
-      })
+    .findOne({ where: { id: req.params.id } })
+    .then((result) => {
+      if (result) {
+        const existingQuantity = result.quantity
+        const newQuantity = existingQuantity + req.body.quantity
+        model.products
+          .update({ quantity: newQuantity }, { where: { id: req.params.id } })
+          .then((update) => {
+            res.status(200).json({
+              messege: "stock updated succcessfully!",
+              update
+            });
+          })
 
-    }
-  })
-  .catch((error) => {
-    res.status(500).json({
-      messege: "Something went wrong!!",
-      error,
+      }
+    })
+    .catch((error) => {
+      res.status(500).json({
+        messege: "Something went wrong!!",
+        error,
+      });
     });
-  });
 }
 //read all product
 const allproduct = (req, res) => {
@@ -107,7 +107,7 @@ const deleteproduct = (req, res) => {
     })
     .catch((err) => {
       res.status(500).json({
-        messege: "Something went wrong",
+        messege: "Something went wrong.",
       });
     });
 };
