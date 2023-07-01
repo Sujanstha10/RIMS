@@ -7,12 +7,12 @@ const verifyMiddleware = require("../middleware/verifacation")
 
 
 
-router.post("/add",customerController.addCustomer)
-router.get("/",customerController.allCustomer)
-router.get("/:id",customerController.showCustomer)
-router.delete("/delete/:id",customerController.deletecustomer)
-router.put("/update/:id",customerController.updatecustomer)
+router.post("/add", customerController.addCustomer)
+router.get("/", customerController.allCustomer)
+router.get("/:id", customerController.showCustomer)
+router.delete("/delete/:id", customerController.deleteCustomer)
+router.put("/update/:id", customerController.updateCustomer)
 
 
 
-module.exports=router
+module.exports = router
