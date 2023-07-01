@@ -56,7 +56,7 @@ const showCustomer = (req, res) => {
 };
 
 //delete Customer
-const deletecustomer = (req, res) => {
+const deleteCustomer = (req, res) => {
   model.customer
     .destroy({ where: { id:req.params.id } })
     .then((result) => {
@@ -78,7 +78,7 @@ const deletecustomer = (req, res) => {
 };
 
 //update Customer
-const updatecustomer = (req, res) => {
+const updateCustomer = (req, res) => {
   model.customer
     .findOne({ where: { id: req.params.id } })
     .then((exist) => {
@@ -120,5 +120,5 @@ const updatecustomer = (req, res) => {
 
 
   module.exports={
-    addCustomer,allCustomer,showCustomer,deletecustomer,updatecustomer
+    addCustomer,allCustomer,showCustomer,deleteCustomer,updateCustomer
   }
