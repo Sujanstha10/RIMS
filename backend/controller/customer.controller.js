@@ -1,7 +1,7 @@
 const model = require("../models")
 
 //add customer 
-const addcustomer = (req, res) => {
+const addCustomer = (req, res) => {
     const Customer = {
         name:req.body.name,
         email:req.body.email,
@@ -56,7 +56,7 @@ const showCustomer = (req, res) => {
 };
 
 //delete Customer
-const deleteCustomer = (req, res) => {
+const deletecustomer = (req, res) => {
   model.customer
     .destroy({ where: { id:req.params.id } })
     .then((result) => {
@@ -78,7 +78,7 @@ const deleteCustomer = (req, res) => {
 };
 
 //update Customer
-const updateCustomer = (req, res) => {
+const updatecustomer = (req, res) => {
   model.customer
     .findOne({ where: { id: req.params.id } })
     .then((exist) => {

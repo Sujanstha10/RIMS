@@ -17,5 +17,5 @@ router.put(
   imageUpload.upload.single("image"),
   productController.updateproduct
 );
-
+router.put("/addstock/:id",productController.addStock)
 module.exports = router;
