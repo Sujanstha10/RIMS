@@ -4,8 +4,10 @@ import Http from "../../../Helper/Http";
 export const customerRegister = createAsyncThunk(
   "customer/register",
   async (userData, { rejectWithValue }) => {
+
+    console.log(userData);
     try {
-      const data = await Http.post("/customer/create", userData);
+      const data = await Http.post("/customer/add", userData);
       return data.data;
     } catch (error) {
       console.log(error);
@@ -21,8 +23,9 @@ export const customerAll = createAsyncThunk(
   "customer/all",
   async (allUser, { rejectWithValue }) => {
     try {
-      const data = await Http.get(`/customer/all`);
-      return data.data.data;
+      const data = await Http.get(`/customer`);
+      console.log(data);
+      return data.data;
     } catch (error) {
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message);
@@ -37,7 +40,8 @@ export const getCustomerById = createAsyncThunk(
   "customer/id",
   async (id, { rejectWithValue }) => {
     try {
-      const data = await Http.get(`/customer/customerById/${id}`);
+      const data = await Http.get(`/customer/${id}`);
+      console.log(data);
       return data.data;
     } catch (error) {
       if (error.response && error.response.data.message) {
@@ -51,8 +55,10 @@ export const getCustomerById = createAsyncThunk(
 export const editCustomerById = createAsyncThunk(
   "customer/edit",
   async (item, { rejectWithValue }) => {
+    console.log(item);
     try {
-      const data = await Http.put(`/user/${item.id}`, item.formdata);
+      const data = await Http.put(`/customer/update/${item.id}`, item.formdata);
+      console.log(data);
       return data.data;
     } catch (error) {
       if (error.response && error.response.data.message) {

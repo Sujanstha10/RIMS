@@ -8,7 +8,7 @@ const User = () => {
     <>
       <TableWrapper
         title='Total Customers'
-        addlink='/dashboard/users/add'
+        addlink='/dashboard/customers/add'
         link='Add Customer'
       >
         <UserTable />

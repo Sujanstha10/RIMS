@@ -12,7 +12,9 @@ const ProductTable = ({ color }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(ProductAll());
+    dispatch(ProductAll()).then((res) => {
+      console.log(res);
+    })
   }, []);
 
   const { loading, products, error } = useSelector((state) => state.products);
@@ -86,7 +88,7 @@ const ProductTable = ({ color }) => {
             products.map((product, i) => {
               return (
                 <tr key={product.id}>
-                  <td className='items-center p-4 px-6 text-left align-middle border-t-0 border-l-0 border-r-0 text-md whitespace-nowrap'>
+                  <td className='items-center p-4 px-6  align-middle border-t-0 border-l-0 border-r-0 text-md whitespace-nowrap text-center'>
                     {i + 1}
                   </td>
                   <td className='items-center p-4 px-6 text-left align-middle border-t-0 border-l-0 border-r-0 text-md whitespace-nowrap'>
@@ -101,7 +103,7 @@ const ProductTable = ({ color }) => {
                       {product.productName}
                     </div>
                   </td>
-                  <td className='items-center p-4 px-6 text-left align-middle border-t-0 border-l-0 border-r-0 text-md whitespace-nowrap'>
+                  <td className='items-center p-4 px-6 text-center align-middle border-t-0 border-l-0 border-r-0 text-md whitespace-nowrap'>
                     {product.quantity}
                   </td>
 
@@ -109,7 +111,7 @@ const ProductTable = ({ color }) => {
                     {product.unitPrice}
                   </td>
                   <td className='p-4 px-6 text-xs align-middle border-t-0 border-l-0 border-r-0 whitespace-nowrap'>
-                    <div className='flex justify-center'>
+                    <div className='flex justify-center gap-5'>
                       <Link to={`/dashboard/products/edit/${product.id}`}>
                         <svg
                           xmlns='http://www.w3.org/2000/svg'
