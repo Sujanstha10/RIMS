@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import UserTable from "../User/UserTable";
-import AddEditWrapper from "../../Common/AddEditWrapper";
-import TableWrapper from "../../Common/TableWrapper";
+import AddEditWrapper from "../../common/AddEditWrapper";
+import TableWrapper from "../../common/TableWrapper";
 
 const User = () => {
   return (

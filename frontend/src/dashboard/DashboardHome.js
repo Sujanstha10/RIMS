@@ -8,6 +8,7 @@ import {
   Sector,
   ResponsiveContainer,
 } from "recharts";
+import Headerstats from "./components/Headerstats";
 const data01 = [
   { name: "Group A", value: 400 },
   { name: "Group B", value: 300 },
@@ -101,6 +102,7 @@ const DashboardHome = () => {
   };
   return (
     <>
+      <Headerstats />
       <div className='w-full h-[65vh] mt-8 flex justify-between'>
         <ResponsiveContainer
           width='100%'

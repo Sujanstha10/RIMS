@@ -7,7 +7,7 @@ import { clearFields } from "../../../redux/features/Customer/customerSlice";
 import Spinner from "../../../Helper/Spinner";
 import { ValidateUser } from "../../../Validation/Validation";
 import { useEffect } from "react";
-import AddEditWrapper from "../../Common/AddEditWrapper";
+import AddEditWrapper from "../../common/AddEditWrapper";
 function Adduser() {
   const navigate = useNavigate();
 

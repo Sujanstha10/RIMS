@@ -5,7 +5,7 @@ const Headerstats = () => {
   return (
     <>
       {/* Header */}
-      <div className='relative pt-12 pb-30 bg-cyan-200 md:pt-20'>
+      <div className='relative pt-12 pb-30 bg-[rgb(135,212,221)] md:pt-20 w-full'>
         <div className='w-full px-4 mx-auto md:px-10'>
           <div>
             {/* Card stats */}

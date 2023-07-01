@@ -21,8 +21,8 @@ const Dashboard = () => {
         <div className='relative md:ml-64'>
           <Dashboardnavbar />
           {/* Header */}
-          <Headerstats />
-          <div className='w-full px-4 pt-20 mx-auto -m-24 '>
+          {/* <Headerstats /> */}
+          <div className='w-full px-0 pt-20 mx-auto -mt-20 '>
             <Routes>
               <Route path='/' element={<DashboardHome />} />
               <Route path='/products' element={<Product />} />

@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
@@ -9,38 +9,57 @@ const Dashboardnavbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { loading, userData, error } = useSelector((state) => state.auth);
+  const { pathname } = useLocation()
+  const [nav, setNav] = useState(true)
   console.log(userData, "dispatch logged in user");
   const handleLogout = () => {
     dispatch(logout());
     navigate("/");
   };
+
+  useEffect(() => {
+    if (pathname === '/dashboard') {
+      console.log(pathname);
+      setNav(true)
+
+    }
+    else {
+
+      setNav(false)
+    }
+
+  }, [pathname])
+
   return (
     <>
       {/* Navbar */}
-      <nav className='absolute top-0 left-0 z-10 flex items-center w-full p-4 bg-transparent md:flex-row md:flex-nowrap md:justify-start'>
-        <div className='flex flex-wrap items-center justify-between w-full px-4 mx-autp md:flex-nowrap md:px-10'>
+      <nav className={`top-0 left-0 z-10 flex items-center w-full p-4 bg-gray-100  md:flex-row md:flex-nowrap md:justify-start  ${nav ? 'bg-[rgb(135,212,221)] ' : ' shadow-md border-b-2 bg-gray-200'}`}>
+        <div className='flex flex-wrap items-center justify-between w-full px-4 mx-autp md:flex-nowrap md:px-10  '>
           {/* Brand */}
-          <a
-            className='hidden text-sm font-semibold text-black uppercase lg:inline-block'
-            href='#pablo'
-            onClick={(e) => e.preventDefault()}
+          <Link
+            className='hidden text-3xl tracking-wide font-semibold text-gray-800  lg:inline-block '
+            to='/dashboard'
           >
-            Dashboard
-          </a>
+            Overview
+          </Link>
           {/* Form */}
-          <form className='flex-row flex-wrap items-center hidden mr-3 md:flex lg:ml-auto'>
+          <form className='flex-row flex-wrap items-center hidden mr-3 md:flex lg:ml-auto '>
             <div className='relative flex flex-wrap items-stretch w-full'>
               <span className='absolute z-10 items-center justify-center w-8 h-full py-3 pl-3 text-base font-normal leading-snug text-center bg-transparent rounded text-blueGray-300'>
                 <i className='fas fa-search'></i>
               </span>
               <div className='flex'>
-                <div>
-                  <input
-                    type='text'
-                    placeholder='Search here...'
-                    className='relative w-full px-3 py-3 pl-10 text-sm bg-white border-0 rounded shadow outline-none placeholder-blueGray-300 text-blueGray-600 focus:outline-none focus:ring'
-                  />
-                </div>
+
+                <form>
+                  <label for="default-search" class="mb-2 text-sm font-medium  sr-only text-white">Search</label>
+                  <div class="relative">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none bg-gray-700 pr-2 rounded-l-md">
+                      <svg aria-hidden="true" class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </div>
+                    <input type="search" id="default-search" class="block w-[90%] p-2 pl-14 text-sm  text-gray-900 border border-gray-400 rounded-md shadow-md bg-gray-50 focus:ring-blue-500 focus:border-blue-500   dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Search here.." />
+                  </div>
+                </form>
+
                 <img
                   src='../sujan.jpg'
                   alt=''
@@ -73,9 +92,8 @@ const Dashboardnavbar = () => {
                           {({ active }) => (
                             <button
                               onClick={handleLogout}
-                              className={`${
-                                active ? "bg-black text-white" : "text-gray-900"
-                              } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                              className={`${active ? "bg-black text-white" : "text-gray-900"
+                                } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                             >
                               Logout
                             </button>
