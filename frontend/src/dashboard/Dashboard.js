@@ -10,7 +10,7 @@ import AddProduct from "./sidebar/Products/AddProduct";
 import DashboardHome from "./DashboardHome";
 import EditProduct from "./sidebar/Products/EditProduct";
 import AddUser from "./sidebar/User/AddUser";
-
+import EditUser from '../dashboard/sidebar/User/EditUser'
 const Dashboard = () => {
   const dispatch = useDispatch();
 
@@ -28,6 +28,7 @@ const Dashboard = () => {
               <Route path='/products' element={<Product />} />
               <Route path='/products/add' element={<AddProduct />} />
               <Route path='/products/edit/:id' element={<EditProduct />} />
+              <Route path='/user/edit/:id' element={<EditUser />} />
               <Route path='/customers' element={<User />} />
               <Route path='/customers/add' element={<AddUser />} />
             </Routes>

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 // import { userAll } from "../../../redux/features/User/authActions";
 import Spinner from "../../../Helper/Spinner";
 import toast from "react-hot-toast";
+import { customerAll } from "../../../redux/features/Customer/customerAction";
 // import Searchbar from "../../common/Searchbar";
 
 // const base_url = "http://localhost:5000/";
@@ -32,6 +33,8 @@ const UserTable = () => {
   const dispatch = useDispatch();
   const [filter, setFilter] = useState("");
   const [page, setPage] = useState(0);
+  const { customers } = useSelector(state => state.customers)
+  // console.log(customers);
   // const { loading, userInfo, users, error } = useSelector(
   //   (state) => state.auth
   // );
@@ -40,6 +43,10 @@ const UserTable = () => {
   //   dispatch(userAll());
   // }, [page, filter]);
 
+
+  useEffect(() => {
+    dispatch(customerAll())
+  }, [])
   return (
     <>
       {/* {loading && <Spinner />}
@@ -87,8 +94,8 @@ const UserTable = () => {
           </tr>
         </thead>
         <tbody>
-          {users && users.length !== 0 ? (
-            users?.map((user, i) => {
+          {customers && customers.length !== 0 ? (
+            customers?.map((user, i) => {
               return (
                 <tr key={user.id}>
                   <td className='items-center p-4 px-6 align-middle border-t-0 border-l-0 border-r-0 text-md whitespace-nowrap'>
@@ -111,11 +118,11 @@ const UserTable = () => {
                     {user.address}
                   </td>
                   <td className='items-center p-4 px-6 text-center align-middle border-t-0 border-l-0 border-r-0 text-md whitespace-nowrap'>
-                    {user.phone_no}
+                    {user.phone}
                   </td>
                   <td className='p-4 px-6 text-xs align-middle border-t-0 border-l-0 border-r-0 whitespace-nowrap'>
                     <div className='flex justify-center'>
-                      <Link to={`/admin/user/edit/${user.id}`}>
+                      <Link to={`/dashboard/user/edit/${user.id}`}>
                         <svg
                           xmlns='http://www.w3.org/2000/svg'
                           class='icon icon-tabler icon-tabler-edit'

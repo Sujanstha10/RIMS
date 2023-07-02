@@ -35,18 +35,23 @@ function Adduser() {
         initialValues={{
           name: "",
           email: "",
-          contact: "",
+          phone: "",
           address: "",
         }}
         validationSchema={ValidateUser}
         onSubmit={async (values, actions) => {
           let formdata = new FormData();
           formdata.append("name", values.name);
-          formdata.append("contact", values.contact);
+          formdata.append("phone", values.phone);
           formdata.append("address", values.address);
           formdata.append("email", values.email);
-          await dispatch(customerRegister(formdata));
-          await dispatch(clearFields());
+          // console.log(FormData);
+          console.log(values);
+          await dispatch(customerRegister(values)).then(() => {
+
+            // dispatch(clearFields());
+            // navigate(-1)
+          });
         }}
       >
         {(props) => (
@@ -129,13 +134,13 @@ function Adduser() {
                   <input
                     type='text'
                     className='w-full px-3 py-3 text-sm transition-all duration-150 ease-linear bg-white border-0 rounded shadow placeholder-blueGray-300 text-blueGray-600 focus:outline-none focus:ring'
-                    name='contact'
+                    name='phone'
                     onChange={props.handleChange}
                     onBlur={props.handleBlur}
-                    value={props.values.contact || ""}
+                    value={props.values.phone || ""}
                   />
                   <span className='text-red-500 error'>
-                    <ErrorMessage name='contact' />
+                    <ErrorMessage name='phone' />
                   </span>
                 </div>
               </div>

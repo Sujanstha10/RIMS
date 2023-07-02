@@ -11,7 +11,7 @@ const Dashboardnavbar = () => {
   const { loading, userData, error } = useSelector((state) => state.auth);
   const { pathname } = useLocation()
   const [nav, setNav] = useState(true)
-  console.log(userData, "dispatch logged in user");
+  // console.log(userData, "dispatch logged in user");
   const handleLogout = () => {
     dispatch(logout());
     navigate("/");
@@ -19,7 +19,7 @@ const Dashboardnavbar = () => {
 
   useEffect(() => {
     if (pathname === '/dashboard') {
-      console.log(pathname);
+      // console.log(pathname);
       setNav(true)
 
     }
@@ -33,7 +33,7 @@ const Dashboardnavbar = () => {
   return (
     <>
       {/* Navbar */}
-      <nav className={`top-0 left-0 z-10 flex items-center w-full p-4 bg-gray-100  md:flex-row md:flex-nowrap md:justify-start  ${nav ? 'bg-[rgb(135,212,221)] ' : ' shadow-md border-b-2 bg-gray-200'}`}>
+      <nav className={`top-0 left-0 z-10 flex items-center w-full p-4 bg-gray-100  md:flex-row md:flex-nowrap md:justify-start  ${nav ? ' bg-[rgb(135,212,222)] ' : ' shadow-md border-b-2 bg-gray-100'}`}>
         <div className='flex flex-wrap items-center justify-between w-full px-4 mx-autp md:flex-nowrap md:px-10  '>
           {/* Brand */}
           <Link
