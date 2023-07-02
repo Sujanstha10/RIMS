@@ -13,7 +13,15 @@ const addproduct = (req, res) => {
 
   model.products.findOne({ where: { productName: req.body.productName } }).then((exist) => {
     if (exist) {
-      addStock
+      let existingQuantity = +exist.quantity
+      let newQuantity = existingQuantity + (+req.body.quantity)
+      model.products
+        .update({ quantity: newQuantity }, { where: { id: exist.id } })
+        .then((update) => {
+          res.status(200).json({
+            messege: "stock updated succcessfully!",
+          });
+        })
     } else {
       model.products
         .create(product)
@@ -46,11 +54,9 @@ const addStock = (req, res) => {
           .then((update) => {
             res.status(200).json({
               messege: "stock updated succcessfully!",
-              update
             });
           })
-
-      }
+        }
     })
     .catch((error) => {
       res.status(500).json({
@@ -59,6 +65,9 @@ const addStock = (req, res) => {
       });
     });
 }
+
+
+
 //read all product
 const allproduct = (req, res) => {
   model.products
