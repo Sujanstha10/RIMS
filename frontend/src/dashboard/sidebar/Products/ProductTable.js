@@ -39,6 +39,18 @@ const ProductTable = ({ color }) => {
               SN
             </th>
 
+
+            <th
+              className={
+                "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                (color === "light"
+                  ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                  : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+              }
+            >
+              Image
+            </th>
+
             <th
               className={
                 "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
@@ -100,9 +112,16 @@ const ProductTable = ({ color }) => {
                           alt={product.id}
                         ></img>
                       )}{" "}
+                      {/* {product.productName} */}
+                    </div>
+                  </td>
+
+                  <td className='items-center p-4 px-6 text-left align-middle border-t-0 border-l-0 border-r-0 text-md whitespace-nowrap'>
+                    <div className='flex'>
                       {product.productName}
                     </div>
                   </td>
+
                   <td className='items-center p-4 px-6 text-center align-middle border-t-0 border-l-0 border-r-0 text-md whitespace-nowrap'>
                     {product.quantity}
                   </td>
