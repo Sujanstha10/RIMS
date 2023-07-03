@@ -46,7 +46,7 @@ function Adduser() {
           formdata.append("address", values.address);
           formdata.append("email", values.email);
           // console.log(FormData);
-          console.log(values);
+          // console.log(values);
           await dispatch(customerRegister(values)).then(() => {
 
             // dispatch(clearFields());
@@ -66,7 +66,7 @@ function Adduser() {
                     className='block mb-2 text-xs font-bold uppercase text-blueGray-600'
                     htmlFor='grid-password'
                   >
-                    Username
+                    Full Name
                   </label>
                   <input
                     type='text'
@@ -152,7 +152,7 @@ function Adduser() {
                   <Spinner />
                 ) : (
                   <button
-                    disabled={loading}
+                    // disabled={loading}
                     type='submit'
                     className='px-4 py-2 mr-1 text-xs font-bold text-white uppercase transition-all duration-150 ease-linear bg-blue-400 rounded shadow outline-none bg-lightBlue-500 hover:shadow-md focus:outline-none'
                   >

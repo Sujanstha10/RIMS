@@ -169,18 +169,18 @@ const EditProduct = () => {
                       <ErrorMessage name='image' />
                     </span>
                   </div>
-                  <div className='px-4 lg:w-3/12'>
+                  <div className='px-4 lg:w-3/12  '>
                     {selectedImage ? (
-                      <div className='relative mt-4 border w-28 h-28'>
+                      <div className='relative mt-4 border w-full  h-full  '>
                         <img
                           src={selectedImage}
-                          height='80'
-                          width='80'
+                          className="h-4/5 w-4/5 object-contain m-auto"
+
                           alt='Thumb'
                         />
                       </div>
                     ) : (
-                      <img
+                      <img className="h-full w-full  "
                         src={`${base_url}${productsById.image}`}
                         height='80'
                         width='80'

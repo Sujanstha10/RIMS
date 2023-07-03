@@ -41,7 +41,7 @@ export const getCustomerById = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const data = await Http.get(`/customer/${id}`);
-      console.log(data);
+      // console.log(data);
       return data.data;
     } catch (error) {
       if (error.response && error.response.data.message) {
@@ -55,10 +55,10 @@ export const getCustomerById = createAsyncThunk(
 export const editCustomerById = createAsyncThunk(
   "customer/edit",
   async (item, { rejectWithValue }) => {
-    console.log(item);
+    // console.log(item);
     try {
-      const data = await Http.put(`/customer/update/${item.id}`, item.formdata);
-      console.log(data);
+      const data = await Http.put(`/customer/update/${item.id}`, item.values);
+      // console.log(data);
       return data.data;
     } catch (error) {
       if (error.response && error.response.data.message) {
