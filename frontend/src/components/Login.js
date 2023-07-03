@@ -7,10 +7,11 @@ import { useFormik } from "formik";
 import { loginSchmea } from "../schema";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogin } from "../storage/admin/user/authAction";
+import LoginImg from '../assests/Login.jpg'
 
 const initialValues = {
-  email: "superadmin@gmail.com",
-  password: "Superadmin@123",
+  email: "",
+  password: "",
 };
 
 const Login = () => {
@@ -35,16 +36,16 @@ const Login = () => {
   }, [userData]);
 
   return (
-    <div name='login' className='flex flex-col w-screen h-screen b'>
+    <div name='login' className='flex flex-col w-screen h-screen '>
       <form
-        className='flex flex-col w-[80%] sm:w-2/3 md:w-[50rem]   m-auto min-h-auto border-2  p-10 gap-3 shadow-2xl  rounded-md'
+        className='flex flex-col w-[80%] sm:w-2/3 md:w-[50rem]   m-auto min-h-auto border-2  py-10  gap-0 shadow-2xl  rounded-md'
         onSubmit={handleSubmit}
       >
         <section className='flex md:w-[95%] gap-[5rem] m-auto h-full'>
-          <div className='  w-[50%] hidden  md:flex'>
+          <div className='  w-4/5 hidden  md:flex '>
             <img
-              className='hidden md:flex'
-              src='http://inmas-rangpur.org/Content/img/signin-image.jpg'
+              className='hidden md:flex bg-blend-color'
+              src={LoginImg}
               alt='error404'
             />
           </div>

@@ -8,6 +8,7 @@ import Spinner from "../../../Helper/Spinner";
 import { ValidateUser } from "../../../Validation/Validation";
 import { useEffect } from "react";
 import AddEditWrapper from "../../common/AddEditWrapper";
+import { toast } from "react-hot-toast";
 function Adduser() {
   const navigate = useNavigate();
 
@@ -47,11 +48,14 @@ function Adduser() {
           formdata.append("email", values.email);
           // console.log(FormData);
           // console.log(values);
-          await dispatch(customerRegister(values)).then(() => {
-
-            // dispatch(clearFields());
-            // navigate(-1)
-          });
+          try {
+            await dispatch(customerRegister(values)).unwrap()
+            toast.success('Customer added successfully.')
+            navigate(-1)
+          }
+          catch (error) {
+            toast.error(error)
+          }
         }}
       >
         {(props) => (
