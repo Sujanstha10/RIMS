@@ -18,7 +18,7 @@ export const DeleteProduct = ({ setShowModal, id }) => {
   return (
     <>
       {error && toast.error(error)}
-      {success && toast.success(`bike deleted  sucessfully`)}
+      {success && toast.success(`Product deleted  sucessfully`)}
       <div className='absolute z-50 flex justify-center w-full overflow-x-hidden overflow-y-auto outline-none top-3 focus:outline-none'>
         <div className='w-1/2'>
           <div className='relative flex flex-col w-full px-4 bg-white border-0 rounded-lg shadow-lg outline-none focus:outline-none'>
