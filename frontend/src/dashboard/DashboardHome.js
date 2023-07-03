@@ -43,17 +43,18 @@ const BarChartComponent = () => {
       <YAxis />
       <Tooltip />
       <Bar dataKey="value" fill="#8884d8" />
+      <Bar dataKey="value" fill="#82ca9d" />
     </BarChart>
   );
 }
 
 const BarChartComponenti = () => {
   const data = [
-    { name: 'Category 1', value: 10 },
+    { name: 'Category 1', value: 1 },
     { name: 'Category 2', value: 20 },
     { name: 'Category 3', value: 15 },
-    { name: 'Category 4', value: 5 },
-    { name: 'Category 4', value: 5 },
+    { name: 'Category 4', value: 91 },
+    { name: 'Category 4', value: 24 },
     { name: 'Category 4', value: 5 },
   ];
 
@@ -64,6 +65,7 @@ const BarChartComponenti = () => {
       <YAxis />
       <Tooltip />
       <Bar dataKey="value" fill="#8884d8" />
+      <Bar dataKey="value" fill="#82ca9d" />
     </BarChart>
   );
 }
