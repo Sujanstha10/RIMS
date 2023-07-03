@@ -15,7 +15,7 @@ export const ValidateUser = Yup.object().shape({
       "Email must have '@' followed by '.com'."
     )
     .required("Email is required."),
-  contact: Yup.number()
+  phone: Yup.number()
     .typeError("Enter a valid phone number")
     .positive("Phone number can't start with a minus")
     .integer("Phone number can't include a decimal point")

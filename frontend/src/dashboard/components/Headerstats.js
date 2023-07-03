@@ -5,7 +5,7 @@ const Headerstats = () => {
   return (
     <>
       {/* Header */}
-      <div className='relative pt-12 pb-30 bg-[rgb(135,212,221)] md:pt-20 w-full'>
+      <div className='relative pt-12 pb-30 bg-[rgb(135,212,221)] md:pt-12 w-full'>
         <div className='w-full px-4 mx-auto md:px-10'>
           <div>
             {/* Card stats */}
@@ -24,7 +24,7 @@ const Headerstats = () => {
               </div>
               <div className='w-full px-4 lg:w-6/12 xl:w-3/12'>
                 <CardStats
-                  statSubtitle='Total '
+                  statSubtitle='Inventory '
                   statTitle='50'
                   statArrow='down'
                   statPercent='3.48'
@@ -36,7 +36,7 @@ const Headerstats = () => {
               </div>
               <div className='w-full px-4 lg:w-6/12 xl:w-3/12'>
                 <CardStats
-                  statSubtitle='Available '
+                  statSubtitle='Orders '
                   statTitle='20'
                   statArrow='down'
                   statPercent='1.10'
