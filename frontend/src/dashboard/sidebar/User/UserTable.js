@@ -11,37 +11,12 @@ import { customerAll } from "../../../redux/features/Customer/customerAction";
 // const base_url = "http://localhost:5000/";
 
 const UserTable = () => {
-  const users = [
-    {
-      id: 1,
-      name: "Aashish",
-      email: "aashish@gmail.com",
-      address: "874748",
-      phone_no: "male",
-      role: "admin",
-    },
-    {
-      id: 2,
-      name: "Aashish",
-      email: "aashish@gmail.com",
-      address: "874748",
-      phone_no: "male",
-      role: "admin",
-    },
-  ];
+
   const [showModal, setShowModal] = useState(false);
   const dispatch = useDispatch();
   const [filter, setFilter] = useState("");
   const [page, setPage] = useState(0);
   const { customers } = useSelector(state => state.customers)
-  // console.log(customers);
-  // const { loading, userInfo, users, error } = useSelector(
-  //   (state) => state.auth
-  // );
-
-  // useEffect(() => {
-  //   dispatch(userAll());
-  // }, [page, filter]);
 
 
   useEffect(() => {
@@ -55,6 +30,13 @@ const UserTable = () => {
       <table className='items-center w-full bg-transparent border-collapse'>
         <thead>
           <tr>
+            <th
+              className={
+                "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700"
+              }
+            >
+              SN
+            </th>
             <th
               className={
                 "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700"
@@ -98,15 +80,16 @@ const UserTable = () => {
             customers?.map((user, i) => {
               return (
                 <tr key={user.id}>
+
                   <td className='items-center p-4 px-6 align-middle border-t-0 border-l-0 border-r-0 text-md whitespace-nowrap'>
                     <div className='flex justify-center'>
-                      {/* {user.image && (
-                        <img
-                          src={`${base_url}${user.image}`}
-                          className='w-12 h-12 bg-white border rounded-full'
-                          alt={user.id}
-                        ></img>
-                      )}{" "} */}
+
+                      {user.id}
+                    </div>
+                  </td>
+                  <td className='items-center p-4 px-6 align-middle border-t-0 border-l-0 border-r-0 text-md whitespace-nowrap'>
+                    <div className='flex justify-center'>
+
                       {user.name}
                     </div>
                   </td>

@@ -1,98 +1,10 @@
 import React, { useState } from "react";
-import {
-  PieChart,
-  Pie,
-  Cell,
-  Legend,
-  Tooltip,
-  Sector,
-  ResponsiveContainer,
-} from "recharts";
+import { BarChart, XAxis, YAxis, CartesianGrid, Tooltip, Bar } from 'recharts';
 import Headerstats from "./components/Headerstats";
-const data01 = [
-  { name: "Group A", value: 400 },
-  { name: "Group B", value: 300 },
-  { name: "Group C", value: 300 },
-];
-const data02 = [
-  { name: "Group A", value: 400 },
-  { name: "Group B", value: 300 },
-  { name: "Group C", value: 300 },
-  { name: "Group D", value: 200 },
-];
-const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
-const renderActiveShape = (props) => {
-  const RADIAN = Math.PI / 180;
-  const {
-    cx,
-    cy,
-    midAngle,
-    innerRadius,
-    outerRadius,
-    startAngle,
-    endAngle,
-    fill,
-    payload,
-    percent,
-    value,
-  } = props;
-  const sin = Math.sin(-RADIAN * midAngle);
-  const cos = Math.cos(-RADIAN * midAngle);
-  const sx = cx + (outerRadius + 10) * cos;
-  const sy = cy + (outerRadius + 10) * sin;
-  const mx = cx + (outerRadius + 30) * cos;
-  const my = cy + (outerRadius + 30) * sin;
-  const ex = mx + (cos >= 0 ? 1 : -1) * 22;
-  const ey = my;
-  const textAnchor = cos >= 0 ? "start" : "end";
 
-  return (
-    <g>
-      <text x={cx} y={cy} dy={8} textAnchor='middle' fill={fill}>
-        {payload.name}
-      </text>
-      <Sector
-        cx={cx}
-        cy={cy}
-        innerRadius={innerRadius}
-        outerRadius={outerRadius}
-        startAngle={startAngle}
-        endAngle={endAngle}
-        fill={fill}
-      />
-      <Sector
-        cx={cx}
-        cy={cy}
-        startAngle={startAngle}
-        endAngle={endAngle}
-        innerRadius={outerRadius + 6}
-        outerRadius={outerRadius + 10}
-        fill={fill}
-      />
-      <path
-        d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`}
-        stroke={fill}
-        fill='none'
-      />
-      <circle cx={ex} cy={ey} r={2} fill={fill} stroke='none' />
-      <text
-        x={ex + (cos >= 0 ? 1 : -1) * 12}
-        y={ey}
-        textAnchor={textAnchor}
-        fill='#333'
-      >{`PV ${value}`}</text>
-      <text
-        x={ex + (cos >= 0 ? 1 : -1) * 12}
-        y={ey}
-        dy={18}
-        textAnchor={textAnchor}
-        fill='#999'
-      >
-        {`(Rate ${(percent * 100).toFixed(2)}%)`}
-      </text>
-    </g>
-  );
-};
+
+
+
 
 const DashboardHome = () => {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -103,63 +15,55 @@ const DashboardHome = () => {
   return (
     <>
       <Headerstats />
-      <div className='w-full h-[65vh] mt-8 flex justify-between'>
-        <ResponsiveContainer
-          width='100%'
-          height='100%'
-          className='flex w-full bg-white border-cyan-950 flex-big'
-        >
-          <PieChart width={600} height={600}>
-            <Pie
-              activeIndex={activeIndex}
-              activeShape={renderActiveShape}
-              data={data01}
-              cx='50%'
-              cy='50%'
-              innerRadius={40}
-              outerRadius={140}
-              fontSize={10}
-              fill='#8884d8'
-              dataKey='value'
-              onMouseEnter={onPieEnter}
-            />
-          </PieChart>
-        </ResponsiveContainer>
-        <ResponsiveContainer
-          width='100%'
-          height='100%'
-          className='flex flex-small'
-        >
-          <PieChart width={600} height={600}>
-            <Pie
-              dataKey='value'
-              isAnimationActive={false}
-              data={data02}
-              fontSize={20}
-              cx='50%'
-              cy='50%'
-              outerRadius={120}
-              fill='#8884d8'
-              label
-            >
-              {" "}
-              {data02.map((entry, index) => (
-                <Cell
-                  key={`cell-${index}`}
-                  fill={COLORS[index % COLORS.length]}
-                />
-              ))}
-            </Pie>
+      <div className='w-full h-[65vh] mt-20 flex gap-8'>
+        <BarChartComponent />
+        <BarChartComponenti />
 
-            <Tooltip />
-          </PieChart>
-        </ResponsiveContainer>
-        {/*   <h1 className='text-4xl text-black mt-36'>
-          Welcome to RIMS Dashboard !!
-        </h1> */}
+
       </div>
     </>
   );
 };
 
 export default DashboardHome;
+
+
+const BarChartComponent = () => {
+  const data = [
+    { name: 'Category 1', value: 10 },
+    { name: 'Category 2', value: 20 },
+    { name: 'Category 3', value: 15 },
+    { name: 'Category 4', value: 5 },
+  ];
+
+  return (
+    <BarChart width={500} height={300} data={data}>
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="name" />
+      <YAxis />
+      <Tooltip />
+      <Bar dataKey="value" fill="#8884d8" />
+    </BarChart>
+  );
+}
+
+const BarChartComponenti = () => {
+  const data = [
+    { name: 'Category 1', value: 10 },
+    { name: 'Category 2', value: 20 },
+    { name: 'Category 3', value: 15 },
+    { name: 'Category 4', value: 5 },
+    { name: 'Category 4', value: 5 },
+    { name: 'Category 4', value: 5 },
+  ];
+
+  return (
+    <BarChart width={500} height={300} data={data}>
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="name" />
+      <YAxis />
+      <Tooltip />
+      <Bar dataKey="value" fill="#8884d8" />
+    </BarChart>
+  );
+}

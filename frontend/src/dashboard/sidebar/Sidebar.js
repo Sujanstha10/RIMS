@@ -81,7 +81,7 @@ export default function Sidebar() {
             {/* Divider */}
             <hr className='my-4 md:min-w-full ' />
             {/* Heading */}
-            <Link to='/dashboard' className='-ml-3 py-2 rounded-lg text-lg font-bold w-fit pl-5 pr-5  bg-[rgb(57,99,173)] text-gray-200 no-underline   cursor-pointer mb-6 mt-2 flex items-center gap-2'>
+            <Link to='/dashboard' className='-ml-3 py-2 rounded-lg text-lg font-bold w-fit pl-5 pr-5 hover:opacity-80 bg-[rgb(57,99,173)] text-gray-200 no-underline   cursor-pointer mb-6 mt-2 flex items-center gap-2'>
               <MdOutlineDashboardCustomize size={25} className="text-white" />
               Dashboard
             </Link>
@@ -89,7 +89,7 @@ export default function Sidebar() {
             {/* Navigation */}
 
             <ul className='flex flex-col list-none md:flex-col md:min-w-full md:mb-4 '>
-              <li className='items-center'>
+              <li className='items-center hover:underline'>
                 <Link
                   className='flex items-center py-3 text-xs font-bold uppercase'
                   to='/dashboard/customers'
@@ -113,7 +113,7 @@ export default function Sidebar() {
               </li>
             </ul>
             <ul className='flex flex-col list-none md:flex-col md:min-w-full md:mb-4'>
-              <li className='items-center'>
+              <li className='items-center hover:underline'>
                 <Link
                   className='flex items-center text-xs font-bold uppercase'
                   to='/dashboard/products'
@@ -137,10 +137,10 @@ export default function Sidebar() {
               </li>
             </ul>
             <ul className='flex flex-col pt-2 list-none md:flex-col md:min-w-full md:mb-4'>
-              <li className='items-center'>
+              <li className='items-center hover:underline'>
                 <Link
                   className='flex items-center text-xs font-bold uppercase '
-                  to='/admin/service'
+                  to='/admin/orders'
                 >
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
@@ -156,7 +156,7 @@ export default function Sidebar() {
                       d='M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z'
                     />
                   </svg>
-                  Contact
+                  Orders
                 </Link>
               </li>
             </ul>
