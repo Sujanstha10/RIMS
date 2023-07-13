@@ -16,7 +16,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       contacNumber: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

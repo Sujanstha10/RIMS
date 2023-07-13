@@ -132,7 +132,7 @@ const updateproduct = (req, res) => {
           categoryId: req.body.categoryId,
           quantity: req.body.quantity,
           unitPrice: req.body.unitPrice,
-          supplierId: req.body.supplierId,
+         supplierId: req.body.supplierId,
           image: req.file ? req.file.path : null,
         };
         model.products

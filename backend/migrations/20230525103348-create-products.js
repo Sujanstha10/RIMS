@@ -16,10 +16,10 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       quantity: {
-        type: Sequelize.INTEGER
+        type: Sequelize.FLOAT
       },
       unitPrice: {
-        type: Sequelize.INTEGER
+        type: Sequelize.FLOAT
       },
       supplierId: {
         type: Sequelize.INTEGER

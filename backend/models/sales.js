@@ -15,8 +15,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   sales.init({
     productId: DataTypes.INTEGER,
-    quantity: DataTypes.INTEGER,
-    unitPrice: DataTypes.INTEGER,
+    quantity: DataTypes.FLOAT,
+    unitPrice: DataTypes.FLOAT,
     saleDate: DataTypes.DATE
   }, {
     sequelize,
