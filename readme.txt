@@ -13,3 +13,11 @@ Additionally, incorporate customer management features to maintain a database of
 5. User-Friendly Interface: Design an intuitive and user-friendly interface for easy navigation and efficient inventory management.
 Consider implementing features such as search filters, sorting options, and customizable dashboards to cater to different user preferences.
 
+
+
+productSupplier :- productId supplierId remainingQuantity
+
+order:-customerId productOrderId 
+
+productOrder:- productId orderId quantity discount
+

@@ -7,6 +7,7 @@ const addCustomer = (req, res) => {
         email:req.body.email,
         address:req.body.address,
         phone:req.body.phone,
+        cost:req.body.cost
     };
     model.customer.create(Customer)
       .then((Result) => {
