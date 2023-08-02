@@ -1,4 +1,7 @@
 'use strict';
+
+const { sequelize } = require('../models');
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -21,8 +24,8 @@ module.exports = {
       unitPrice: {
         type: Sequelize.FLOAT
       },
-      supplierId: {
-        type: Sequelize.INTEGER
+      image:{
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

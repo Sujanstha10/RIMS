@@ -1,72 +1,111 @@
 const model = require("../models");
 
 //add product
-const addproduct = (req, res) => {
+const addproduct = async (req, res) => {
   const product = {
     productName: req.body.productName,
     categoryId: req.body.categoryId,
     quantity: req.body.quantity,
     unitPrice: req.body.unitPrice,
-    supplierId: req.body.supplierId,
     image: req.file ? req.file.path : null,
   };
 
-  model.products.findOne({ where: { productName: req.body.productName } }).then((exist) => {
-    if (exist) {
-      let existingQuantity = +exist.quantity
-      let newQuantity = existingQuantity + (+req.body.quantity)
-      model.products
-        .update({ quantity: newQuantity }, { where: { id: exist.id } })
-        .then((update) => {
-          res.status(200).json({
-            messege: "stock updated succcessfully!",
+  await model.products
+    .findOne({ where: { productName: req.body.productName } })
+    .then((exist) => {
+      if (exist) {
+        model.productSuppliers
+          .findOne({ where: { productId: exist.id } })
+          .then((result) => {
+            let existingQuantity = +result.remainingQuantity;
+
+            let newQuantity = existingQuantity + +req.body.quantity;
+            model.productSuppliers
+              .update(
+                { remainingQuantity: newQuantity },
+                { where: { productId: exist.id } }
+              )
+              .then((update) => {
+                res.status(200).json({
+                  messege: "stock updated succcessfully!",
+                });
+              });
+          })
+          .catch((err) => {
+            res.status(500).json({
+              message: "Something went wrong!",
+              err,
+            });
           });
-        })
-    } else {
-      model.products
-        .create(product)
-        .then((Result) => {
-          res.status(200).json({
-            message: "product added successfully",
-            result: product,
+      } else {
+        model.sequelize.transaction(async (transaction) => {
+          // Create a new product
+          const newProduct = await model.products.create(product, {
+            transaction,
           });
-        })
-        .catch((err) => {
-          res.status(500).json({
-            message: "Something went wrong",
-            err,
+
+          // Create a new productsupplier
+          const createProductSupplier = await model.productSuppliers.create(
+            {
+              productId: newProduct.id,
+              supplierId: req.body.supplierId,
+              remainingQuantity: newProduct.quantity,
+            },
+            { transaction }
+          );
+
+          return res.status(201).json({
+            newProduct,
+            createProductSupplier,
           });
         });
 
-    }
-  })
+        // model.products
+        //   .create(product)
+        //   .then((Result) => {
+        //     res.status(200).json({
+        //       message: "product added successfully",
+        //       result: product,
+        //     });
+        //   })
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Something went wrong!!",
+        err,
+      });
+    });
 };
 
 const addStock = (req, res) => {
-  model.products
-    .findOne({ where: { id: req.params.id } })
-    .then((result) => {
-      if (result) {
-        const existingQuantity = result.quantity
-        const newQuantity = existingQuantity + req.body.quantity
-        model.products
-          .update({ quantity: newQuantity }, { where: { id: req.params.id } })
-          .then((update) => {
-            res.status(200).json({
-              messege: "stock updated succcessfully!",
+
+        model.productSuppliers
+        .findOne({ where: { productId: req.params.id } })
+        .then((result) => {
+          let existingQuantity = +result.remainingQuantity;
+
+          let newQuantity = existingQuantity + +req.body.remainingQuantity;
+          model.productSuppliers
+            .update(
+              { remainingQuantity: newQuantity },
+              { where: { productId: req.params.id } }
+            )
+            .then((update) => {
+              res.status(200).json({
+                messege: "stock updated succcessfully!",
+              });
             });
-          })
-        }
-    })
+        })
+      
+    
     .catch((error) => {
       res.status(500).json({
         messege: "Something went wrong!!",
         error,
       });
     });
-}
-
-
+};
 
 //read all product
 const allproduct = (req, res) => {
@@ -132,7 +171,7 @@ const updateproduct = (req, res) => {
           categoryId: req.body.categoryId,
           quantity: req.body.quantity,
           unitPrice: req.body.unitPrice,
-         supplierId: req.body.supplierId,
+          supplierId: req.body.supplierId,
           image: req.file ? req.file.path : null,
         };
         model.products
@@ -169,5 +208,5 @@ module.exports = {
   showproduct,
   deleteproduct,
   updateproduct,
-  addStock
+  addStock,
 };
