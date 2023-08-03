@@ -1,28 +1,29 @@
-const model = require("../models")
+const model = require("../models");
 
-//add purchase 
+//add purchase
 const addpurchase = (req, res) => {
-    const purchase = {
-        productId:req.body.productId,
-        quantity:req.body.quantity,
-        unitPrice:req.body.unitPrice,
-        purchaseDate:req.body.purchaseDate,
-    };
-    model.purchases.create(purchase)
-      .then((Result) => {
-        res.status(200).json({
-          message: "purchase added successfully",
-          result: purchase,
-        });
-      })
-      .catch((err) => {
-        res.status(500).json({
-          message: "Something went wrong",
-          err,
-        });
-      });
+  const purchase = {
+    productId: req.body.productId,
+    quantity: req.body.quantity,
+    unitPrice: req.body.unitPrice,
+    purchaseDate: req.body.purchaseDate,
   };
-  //read all purchase
+  model.purchases
+    .create(purchase)
+    .then((Result) => {
+      res.status(200).json({
+        message: "purchase added successfully",
+        result: purchase,
+      });
+    })
+    .catch((err) => {
+      res.status(500).json({
+        message: "Something went wrong",
+        err,
+      });
+    });
+};
+//read all purchase
 const allpurchase = (req, res) => {
   model.purchases
     .findAll()
@@ -42,10 +43,8 @@ const showpurchase = (req, res) => {
   model.purchases
     .findOne({ where: { id: req.params.id } })
     .then((result) => {
-        if(result)
-      res.status(200).json(result);
-      else
-      res.status(401).json({message:"purchase not found"});
+      if (result) res.status(200).json(result);
+      else res.status(401).json({ message: "purchase not found" });
     })
     .catch((error) => {
       res.status(500).json({
@@ -58,7 +57,7 @@ const showpurchase = (req, res) => {
 //delete purchase
 const deletepurchase = (req, res) => {
   model.purchases
-    .destroy({ where: { id:req.params.id } })
+    .destroy({ where: { id: req.params.id } })
     .then((result) => {
       if (result) {
         res.status(200).json({
@@ -84,11 +83,10 @@ const updatepurchase = (req, res) => {
     .then((exist) => {
       if (exist) {
         const editedpurchase = {
-            productId:req.body.productId,
-            quantity:req.body.quantity,
-            unitPrice:req.body.unitPrice,
-            purchaseDate:req.body.purchaseDate,
-
+          productId: req.body.productId,
+          quantity: req.body.quantity,
+          unitPrice: req.body.unitPrice,
+          purchaseDate: req.body.purchaseDate,
         };
         model.purchases
           .update(editedpurchase, { where: { id: req.params.id } })
@@ -118,7 +116,10 @@ const updatepurchase = (req, res) => {
     });
 };
 
-
-  module.exports={
-    addpurchase,allpurchase,showpurchase,deletepurchase,updatepurchase
-  }
+module.exports = {
+  addpurchase,
+  allpurchase,
+  showpurchase,
+  deletepurchase,
+  updatepurchase,
+};

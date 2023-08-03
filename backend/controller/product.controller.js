@@ -15,37 +15,38 @@ const addproduct = async (req, res) => {
     .then((existProduct) => {
       if (existProduct) {
         model.productSuppliers
-        .findAll({ where: { productId: existProduct.id } })
-        .then((result) => {
-             model.productSuppliers.findOne({where:{supplierId:req.body.supplierId}}).then((existProductSupplier)=>{
-              console.log(existProductSupplier.productId)
-                  let existingQuantity = +existProductSupplierb.remainingQuantity;
-                  let newQuantity = existingQuantity + +req.body.quantity;
-              if(existProductSupplier){
-                model.productSuppliers
-                  .update(
-                    { remainingQuantity: (newQuantity) },
-                    { where: {productId : existProductSupplier.productId} }
-                  )
-                  .then((update) => {
-                    res.status(200).json({
-                      messege: "stock updated succcessfully!",
+          .findAll({ where: { productId: existProduct.id } })
+          .then((result) => {
+            model.productSuppliers
+              .findOne({ where: { supplierId: req.body.supplierId } })
+              .then((existProductSupplier) => {
+                console.log(existProductSupplier.productId);
+                let existingQuantity = +existProductSupplier.remainingQuantity;
+
+                let newQuantity = existingQuantity + +req.body.quantity;
+                if (existProductSupplier) {
+                  model.productSuppliers
+                    .update(
+                      { remainingQuantity: newQuantity },
+                      { where: { productId: existProductSupplier.productId } }
+                    )
+                    .then((update) => {
+                      res.status(200).json({
+                        messege: "stock updated succcessfully!",
+                      });
                     });
-                  }); 
-              }else{
-                const createProductSupplier =  model.productSuppliers.create(
-                  {
+                } else {
+                  const createProductSupplier = model.productSuppliers.create({
                     productId: existProduct.id,
                     supplierId: req.body.supplierId,
                     remainingQuantity: req.body.quantity,
-                  }
-                );
-      
-                return res.status(201).json({
-                  createProductSupplier
-                });
-              }
-            })
+                  });
+
+                  return res.status(201).json({
+                    createProductSupplier,
+                  });
+                }
+              });
           })
           .catch((err) => {
             res.status(500).json({
@@ -90,36 +91,6 @@ const addproduct = async (req, res) => {
       res.status(500).json({
         message: "Something went wrong!!",
         err,
-      });
-    });
-};
-
-const addStock = (req, res) => {
-
-        model.productSuppliers
-        .findOne({ where: { productId: req.params.id } })
-        .then((result) => {
-          let existingQuantity = +result.remainingQuantity;
-          
-          console.log("--------")
-          let newQuantity = existingQuantity + +req.body.remainingQuantity;
-          model.productSuppliers
-            .update(
-              { remainingQuantity: newQuantity },
-              { where: { productId: req.params.id } }
-            )
-            .then((update) => {
-              res.status(200).json({
-                messege: "stock updated succcessfully!",
-              });
-            });
-        })
-      
-    
-    .catch((error) => {
-      res.status(500).json({
-        messege: "Something went wrong!!",
-        error,
       });
     });
 };
@@ -225,5 +196,4 @@ module.exports = {
   showproduct,
   deleteproduct,
   updateproduct,
-  addStock,
 };
