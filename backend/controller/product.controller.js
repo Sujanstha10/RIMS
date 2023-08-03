@@ -12,24 +12,40 @@ const addproduct = async (req, res) => {
 
   await model.products
     .findOne({ where: { productName: req.body.productName } })
-    .then((exist) => {
-      if (exist) {
+    .then((existProduct) => {
+      if (existProduct) {
         model.productSuppliers
-          .findOne({ where: { productId: exist.id } })
-          .then((result) => {
-            let existingQuantity = +result.remainingQuantity;
-
-            let newQuantity = existingQuantity + +req.body.quantity;
-            model.productSuppliers
-              .update(
-                { remainingQuantity: newQuantity },
-                { where: { productId: exist.id } }
-              )
-              .then((update) => {
-                res.status(200).json({
-                  messege: "stock updated succcessfully!",
+        .findAll({ where: { productId: existProduct.id } })
+        .then((result) => {
+             model.productSuppliers.findOne({where:{supplierId:req.body.supplierId}}).then((existProductSupplier)=>{
+              console.log(existProductSupplier.productId)
+                  let existingQuantity = +existProductSupplierb.remainingQuantity;
+                  let newQuantity = existingQuantity + +req.body.quantity;
+              if(existProductSupplier){
+                model.productSuppliers
+                  .update(
+                    { remainingQuantity: (newQuantity) },
+                    { where: {productId : existProductSupplier.productId} }
+                  )
+                  .then((update) => {
+                    res.status(200).json({
+                      messege: "stock updated succcessfully!",
+                    });
+                  }); 
+              }else{
+                const createProductSupplier =  model.productSuppliers.create(
+                  {
+                    productId: existProduct.id,
+                    supplierId: req.body.supplierId,
+                    remainingQuantity: req.body.quantity,
+                  }
+                );
+      
+                return res.status(201).json({
+                  createProductSupplier
                 });
-              });
+              }
+            })
           })
           .catch((err) => {
             res.status(500).json({
@@ -84,7 +100,8 @@ const addStock = (req, res) => {
         .findOne({ where: { productId: req.params.id } })
         .then((result) => {
           let existingQuantity = +result.remainingQuantity;
-
+          
+          console.log("--------")
           let newQuantity = existingQuantity + +req.body.remainingQuantity;
           model.productSuppliers
             .update(
