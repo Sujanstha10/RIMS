@@ -20,15 +20,15 @@ const addproduct = async (req, res) => {
             model.productSuppliers
               .findOne({ where: { supplierId: req.body.supplierId } })
               .then((existProductSupplier) => {
-                console.log(existProductSupplier.productId);
-                let existingQuantity = +existProductSupplier.remainingQuantity;
+                // console.log(existProductSupplier.productId);
 
-                let newQuantity = existingQuantity + +req.body.quantity;
                 if (existProductSupplier) {
+                  let existingQuantity = +existProductSupplier.remainingQuantity;
+                  let newQuantity = existingQuantity + +req.body.quantity;
                   model.productSuppliers
                     .update(
                       { remainingQuantity: newQuantity },
-                      { where: { productId: existProductSupplier.productId } }
+                      { where: { supplierId: existProductSupplier.supplierId } }
                     )
                     .then((update) => {
                       res.status(200).json({
@@ -43,7 +43,7 @@ const addproduct = async (req, res) => {
                   });
 
                   return res.status(201).json({
-                    createProductSupplier,
+                    createProductSupplier:createProductSupplier,
                   });
                 }
               });
@@ -70,7 +70,6 @@ const addproduct = async (req, res) => {
             },
             { transaction }
           );
-
           return res.status(201).json({
             newProduct,
             createProductSupplier,

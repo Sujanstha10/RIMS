@@ -33,14 +33,15 @@ const showProductSupplier = (req, res) => {
     .findAll({
       include: [
         {
-          model: model.products,
-          as: "product",
-          attributes: ["productName"],
-        },
-        {
           model: model.suppliers,
-          as: "supplier",
           attributes: ["supplierName"],
+          include: [
+            {
+              model: model.products,
+              attributes: ["productName"],
+              through: { attributes: [] },
+            },
+          ],
         },
       ],
       attributes: {
