@@ -44,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
       onUpdate: 'CASCADE',
     },
     remainingQuantity: DataTypes.FLOAT,
-    // allowNull: false,
+    allowNull: false,
   }, {
     sequelize,
     modelName: 'productSuppliers',

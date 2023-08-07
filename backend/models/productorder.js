@@ -21,11 +21,33 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE',
       });
+      models.productOrder.belongsTo(models.order, {
+        foreignKey: 'productOrderId',
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE',
+      });
+      
     }
   }
   productOrder.init({
-    productId: DataTypes.INTEGER,
-    orderId: DataTypes.INTEGER,
+    productId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'products',
+        key: 'id',
+      },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    },
+    orderId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'order',
+        key: 'id',
+      },
+      onDelete: 'CASCADE',
+      onUpdate: 'CASCADE',
+    },
     quantity: DataTypes.FLOAT,
     unitPrice: DataTypes.FLOAT,
     total: DataTypes.FLOAT

@@ -37,14 +37,6 @@ app.use("/uploads", express.static(__dirname + "/uploads"));
 
 
 module.exports = app;
-// sequelize
-//   .sync({ force: true })
-//   .then((result) => {
-//     console.log("migration successful");
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//   });
 
 
 
