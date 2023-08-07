@@ -19,11 +19,6 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       });
-      order.hasMany(models.productOrder, {
-        foreignKey: "productOrderId",
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE",
-      });
     }
   }
   order.init(
@@ -32,15 +27,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         references: {
           model: "customer",
-          key: "id",
-        },
-        onDelete: "CASCADE",
-        onUpdate: "CASCADE",
-      },
-      productOrderId: {
-        type: DataTypes.INTEGER,
-        references: {
-          model: "productOrder",
           key: "id",
         },
         onDelete: "CASCADE",
