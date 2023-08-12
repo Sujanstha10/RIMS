@@ -88,7 +88,7 @@ const showProductOrder = (req, res) => {
 
     .catch((error) => {
       res.status(500).json({
-        messege: error.message,
+        message: error.message,
         error,
       });
     });

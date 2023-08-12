@@ -16,7 +16,7 @@ const addsupplier = (req, res) => {
       })
       .catch((err) => {
         res.status(500).json({
-          message: "Something went wrong",
+          message: err.message,
           err,
         });
       });
@@ -30,7 +30,7 @@ const allsupplier = (req, res) => {
     })
     .catch((error) => {
       res.status(500).json({
-        messege: "Something went wrong!!",
+        message:error.message,
         error,
       });
     });
@@ -48,7 +48,7 @@ const showsupplier = (req, res) => {
     })
     .catch((error) => {
       res.status(500).json({
-        messege: "Something went wrong!!",
+        message: error.message,
         error,
       });
     });
@@ -61,17 +61,17 @@ const deletesupplier = (req, res) => {
     .then((result) => {
       if (result) {
         res.status(200).json({
-          messege: `supplier  deleted`,
+          message: `supplier  deleted`,
         });
       } else {
         res.status(404).json({
-          messege: `supplier not found`,
+          message: `supplier not found`,
         });
       }
     })
     .catch((err) => {
       res.status(500).json({
-        messege: "Something went wrong",
+        message: err.message,
       });
     });
 };
@@ -91,25 +91,25 @@ const updatesupplier = (req, res) => {
           .update(editedsupplier, { where: { id: req.params.id } })
           .then((update) => {
             res.status(200).json({
-              messege: "supplier updated succcessfully!",
+              message: "supplier updated succcessfully!",
               update: editedsupplier,
             });
           })
           .catch((err) => {
             res.status(500).json({
-              messege: "something went wrong!",
+              message: err.message,
               err,
             });
           });
       } else {
         res.status(401).json({
-          messege: "supplier not found",
+          message: "supplier not found",
         });
       }
     })
     .catch((err) => {
       res.status(500).json({
-        messege: "something went wrong",
+        message: err.message,
         err,
       });
     });

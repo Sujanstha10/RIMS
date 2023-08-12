@@ -6,4 +6,5 @@ const imageUpload = require("../helpers/image-uploader");
 
 router.put("/:id",productSupplierController.addStock)
 router.get("/",productSupplierController.showProductSupplier)
+router.get("/:id",productSupplierController.showProductSupplierById)
 module.exports = router;

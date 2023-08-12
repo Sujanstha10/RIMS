@@ -32,7 +32,7 @@ const addproduct = async (req, res) => {
                     )
                     .then((update) => {
                       res.status(200).json({
-                        messege: "stock updated succcessfully!",
+                        message: "stock updated succcessfully!",
                       });
                     });
                 } else {
@@ -50,7 +50,7 @@ const addproduct = async (req, res) => {
           })
           .catch((err) => {
             res.status(500).json({
-              message: "Something went wrong!",
+              message: err.message,
               err,
             });
           });
@@ -88,7 +88,7 @@ const addproduct = async (req, res) => {
     })
     .catch((err) => {
       res.status(500).json({
-        message: "Something went wrong!!",
+        message: err.message,
         err,
       });
     });
@@ -103,7 +103,7 @@ const allproduct = (req, res) => {
     })
     .catch((error) => {
       res.status(500).json({
-        messege: "Something went wrong!!",
+        message: error.message,
         error,
       });
     });
@@ -119,7 +119,7 @@ const showproduct = (req, res) => {
     })
     .catch((error) => {
       res.status(500).json({
-        messege: "Something went wrong!!",
+        message: error.message,
         error,
       });
     });
@@ -132,17 +132,17 @@ const deleteproduct = (req, res) => {
     .then((result) => {
       if (result) {
         res.status(200).json({
-          messege: `product  deleted`,
+          message: `product  deleted`,
         });
       } else {
         res.status(404).json({
-          messege: `product not found`,
+          message: `product not found`,
         });
       }
     })
     .catch((err) => {
       res.status(500).json({
-        messege: "Something went wrong.",
+        message: err.message,
       });
     });
 };
@@ -165,25 +165,25 @@ const updateproduct = (req, res) => {
           .update(editedproduct, { where: { id: req.params.id } })
           .then((update) => {
             res.status(200).json({
-              messege: "product updated succcessfully!",
+              message: "product updated succcessfully!",
               update: editedproduct,
             });
           })
           .catch((err) => {
             res.status(500).json({
-              messege: "something went wrong!",
+              message: err.message,
               err,
             });
           });
       } else {
         res.status(401).json({
-          messege: "product not found",
+          message: "product not found",
         });
       }
     })
     .catch((err) => {
       res.status(500).json({
-        messege: "something went wrong",
+        message: err.message,
         err,
       });
     });

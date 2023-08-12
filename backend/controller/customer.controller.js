@@ -17,7 +17,7 @@ const addCustomer = (req, res) => {
       })
       .catch((err) => {
         res.status(500).json({
-          message: "Something went wrong",
+          message:err.message,
           err,
         });
       });
@@ -31,7 +31,7 @@ const allCustomer = (req, res) => {
     })
     .catch((error) => {
       res.status(500).json({
-        messege: "Something went wrong!!",
+        message: error.message,
         error,
       });
     });
@@ -49,7 +49,7 @@ const showCustomer = (req, res) => {
     })
     .catch((error) => {
       res.status(500).json({
-        messege: "Something went wrong!!",
+        message: error.message,
         error,
       });
     });
@@ -62,17 +62,17 @@ const deleteCustomer = (req, res) => {
     .then((result) => {
       if (result) {
         res.status(200).json({
-          messege: `Customer  deleted`,
+          message: `Customer  deleted`,
         });
       } else {
         res.status(404).json({
-          messege: `Customer not found`,
+          message: `Customer not found`,
         });
       }
     })
     .catch((err) => {
       res.status(500).json({
-        messege: "Something went wrong",
+        message:err.message,
       });
     });
 };
@@ -94,25 +94,25 @@ const updateCustomer = (req, res) => {
           .update(editedCustomer, { where: { id: req.params.id } })
           .then((update) => {
             res.status(200).json({
-              messege: "Customer updated succcessfully!",
+              message: "Customer updated succcessfully!",
               update: editedCustomer,
             });
           })
           .catch((err) => {
             res.status(500).json({
-              messege: "something went wrong!",
+              message: err.message,
               err,
             });
           });
       } else {
         res.status(401).json({
-          messege: "Customer not found",
+          message: "Customer not found",
         });
       }
     })
     .catch((err) => {
       res.status(500).json({
-        messege: "something went wrong",
+        message:err.message,
         err,
       });
     });
