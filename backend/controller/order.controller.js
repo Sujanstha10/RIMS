@@ -119,14 +119,29 @@ const addOrder = async (req, res) => {
 
       const outOfStockProducts = [];
       const remainingStockProducts = [];
+      // Create an array to store productIds and quantities
+      const productUpdates = [];
+
+      const filteredOrder = orders.filter((item) => item.quantity !== 0);
+      console.log(filteredOrder);
+
+      // Populate the productUpdates array
+      filteredOrder.forEach((item) => {
+        productUpdates.push({
+          productId: item.productId,
+          quantity: item.quantity,
+          unitPrice: item.unitPrice,
+          total: item.unitPrice * item.quantity,
+        });
+        // console.log(item)
+      });
 
       // Update product quantities
       await Promise.all(
-        orders.map(async (item) => {
+        productUpdates.map(async (item) => {
           const product = await model.products.findByPk(item.productId, {
             transaction,
           });
-
           if (!product || product.quantity < item.quantity) {
             outOfStockProducts.push(product.productName);
             remainingStockProducts.push(product.quantity);
@@ -136,7 +151,6 @@ const addOrder = async (req, res) => {
               product.quantity - item.quantity,
               0
             );
-
             // Update the product's quantity in the database
             await product.update(
               { quantity: updatedQuantity },
@@ -156,6 +170,14 @@ const addOrder = async (req, res) => {
         })
       );
       const message = [];
+      
+// const totalAmt=         productUpdates.forEach((item)=>{
+//   let amt = 0;
+//   console.log(amt = amt + item.total)
+  
+// })
+
+        
       if (outOfStockProducts.length > 0) {
         outOfStockProducts.forEach((item, i) => {
           message.push(
@@ -167,9 +189,14 @@ const addOrder = async (req, res) => {
           message,
           // message: "remaining stock" + outOfStockProducts.stock
         });
+      } else if (filteredOrder.length == 0) {
+        return res.status(200).json({
+          message: "No Order placed .",
+        });
       } else {
         return res.status(200).json({
-          message: "Order created successfully.",
+          orderPlaced: filteredOrder,
+          message: "Order placed successfully.",
         });
       }
     });
