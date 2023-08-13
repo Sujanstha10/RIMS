@@ -1,5 +1,6 @@
 const model = require("../models");
 const order = require("../models/order");
+const products = require("../models/products");
 
 //[
 //     {
@@ -102,8 +103,6 @@ const order = require("../models/order");
 //   }
 // };
 
-
-
 const addOrder = async (req, res) => {
   try {
     await model.sequelize.transaction(async (transaction) => {
@@ -119,38 +118,58 @@ const addOrder = async (req, res) => {
       );
 
       const outOfStockProducts = [];
+      const remainingStockProducts = [];
 
       // Update product quantities
-      for (const item of orders) {
-        const product = await model.products.findByPk(item.productId, { transaction });
+      await Promise.all(
+        orders.map(async (item) => {
+          const product = await model.products.findByPk(item.productId, {
+            transaction,
+          });
 
-        if (!product || product.quantity < item.quantity) {
-          outOfStockProducts.push( product.productName );
-        } else {
-                    // Calculate updated quantity
-                    const updatedQuantity = product.quantity - item.quantity;
-          
-                    // Update the product's quantity in the database
-                    await product.update({ quantity: updatedQuantity },{where:{id:product.id}}, { transaction });
-          const newProdcutOrder = {
-            orderId: orderNew.id,
-            productId: item.productId,
-            quantity: item.quantity,
-            unitPrice: item.unitPrice,
-            total: item.unitPrice * item.quantity,
-          };
+          if (!product || product.quantity < item.quantity) {
+            outOfStockProducts.push(product.productName);
+            remainingStockProducts.push(product.quantity);
+          } else {
+            // Calculate updated quantity
+            const updatedQuantity = Math.max(
+              product.quantity - item.quantity,
+              0
+            );
 
-          await model.productOrder.create(newProdcutOrder, { transaction });
-        }
-      }
+            // Update the product's quantity in the database
+            await product.update(
+              { quantity: updatedQuantity },
+              { where: { id: product.id } },
+              { transaction }
+            );
+            const newProdcutOrder = {
+              orderId: orderNew.id,
+              productId: item.productId,
+              quantity: item.quantity,
+              unitPrice: item.unitPrice,
+              total: item.unitPrice * item.quantity,
+            };
 
+            await model.productOrder.create(newProdcutOrder, { transaction });
+          }
+        })
+      );
+      const message = [];
       if (outOfStockProducts.length > 0) {
+        outOfStockProducts.forEach((item, i) => {
+          message.push(
+            `Out of stock: ${item}, only ${remainingStockProducts[i]} left`
+          );
+          //  const message = "Out of stock: " + item
+        });
         return res.status(200).json({
-          message: 'Out of stock: ' + outOfStockProducts,
+          message,
+          // message: "remaining stock" + outOfStockProducts.stock
         });
       } else {
         return res.status(200).json({
-          message: 'Order created successfully.',
+          message: "Order created successfully.",
         });
       }
     });
