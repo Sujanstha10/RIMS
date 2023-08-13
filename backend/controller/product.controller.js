@@ -138,19 +138,19 @@ const addproduct = async (req, res) => {
         { where: { id } }
       );
 
-      const [numUpdated] = await model.productSuppliers.update(
-        {
-          remainingQuantity: model.sequelize.literal(
-            `remainingQuantity + ${req.body.quantity}`
-          ),
-        },
-        {
-          where: {
-            productId: id,
-            supplierId: req.body.supplierId,
+        const [numUpdated] = await model.productSuppliers.update(
+          {
+            remainingQuantity: model.sequelize.literal(
+              `remainingQuantity + ${req.body.quantity}`
+            ),
           },
-        }
-      );
+          {
+            where: {
+              productId: id,
+              supplierId: req.body.supplierId,
+            },
+          }
+        );
 
       if (numUpdated > 0) {
         res.status(200).json({
