@@ -29,59 +29,25 @@ const addStock = (req, res) => {
 
 const showProductSupplier = (req, res) => {
   model.suppliers
-  .findAll({
-    
-    // where: { id: req.params.id },
-    include: [
-      {
-        model: model.products,
-        attributes: ["productName"],
-        through: { attributes: ["remainingQuantity"] }, // Include remainingQuantity from the junction table
-      },
-    ],
-    attributes: ["supplierName"],
-  })
-  
-  // model.productSuppliers
-  // .findAll({
-  //   include: [
-  //     {
-  //       model: model.suppliers,
-  //       attributes: ["supplierName"],
-  //     },
-  //     {
-  //       model: model.products,
-  //       attributes: ["productName"],
-  //       through: { attributes: ["remainingQuantity"] }, // Include remainingQuantity from the junction table
-  //     },
-  //   ],
-  //   attributes: [],
-  // })
-
-
-  // model.productSuppliers
-  //   .findAll({
-  //     include: [
-  //       {
-  //         model: model.suppliers,
-  //         attributes: ["supplierName"],
-  //         include: [
-  //           {
-  //             model: model.products,
-  //             attributes: ["productName"],
-  //             through: { attributes: ["remainingQuantity"] }, // Include remainingQuantity from the junction table
-  //           },
-  //         ],
-  //       },
-  //     ],
-  //     attributes: [],
-  //   })
-    .then((result) => {
-      res.status(200).json({
-        result,
-      });
+    .findAll({
+      // where: { id: req.params.id },
+      include: [
+        {
+          model: model.products,
+          attributes: ["productName"  ,
+      ],
+          through: { attributes: ["remainingQuantity"] }, // Include remainingQuantity from the junction table
+        },
+      ],
+      attributes: ["supplierName"],
     })
 
+
+    .then((result) => {
+        res.status(200).json({
+          result,
+        });
+    })
     .catch((error) => {
       res.status(500).json({
         message: error.message,
@@ -118,8 +84,29 @@ const showProductSupplierById = (req, res) => {
     });
 };
 
+
+// const fetchSimilarProductsAndCalculateTotal = async () => {
+//   try {
+//     const result = await model.productSupplier.findAll({
+//       attributes: [
+//         'productId', // Select productId
+//         [model.sequelize.fn('SUM', model.sequelize.col('remainingQuantity')), 'total'] // Calculate the sum of quantity and alias it as 'totalQuantity'
+//       ],
+//       group: ['productId'], // Group by productId
+//       raw: true // Get raw result rows
+//     });
+
+//     console.log(result);
+//   } catch (err) {
+//     console.error('Error:', err);
+//   }
+// };
+
+
+
 module.exports = {
   addStock,
   showProductSupplier,
   showProductSupplierById,
+  // fetchSimilarProductsAndCalculateTotal
 };

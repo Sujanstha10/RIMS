@@ -1,6 +1,119 @@
 const model = require("../models");
+const { Sequelize } = require("sequelize");
+const { Op } = require("sequelize");
 
-//add product
+// //add product
+// const addproduct = async (req, res) => {
+//   const product = {
+//     productName: req.body.productName,
+//     categoryId: req.body.categoryId,
+//     quantity: req.body.quantity,
+//     unitPrice: req.body.unitPrice,
+//     image: req.file ? req.file.path : null,
+//   };
+
+//   await model.products
+//     .findOne({ where: { productName: req.body.productName } })
+//     .then((existProduct) => {
+//       const id = existProduct.id;
+//       if (existProduct) {
+//         let oldQuantity = existProduct.quantity;
+//         let updateQuantity = oldQuantity + req.body.quantity;
+//         model.products.update(
+//           { quantity: updateQuantity },
+//           { where: { id: existProduct.id } }
+//         );
+//         model.productSuppliers
+//           .findAll({ where: { productId: existProduct.id } })
+//           .then((result) => {
+//             model.productSuppliers
+//               .findOne({ where: { supplierId: req.body.supplierId } })
+//               .then((existProductSupplier) => {
+//                 // console.log(existProductSupplier.productId);
+//                 if (existProductSupplier) {
+//                   let existingQuantity =
+//                     +existProductSupplier.remainingQuantity;
+//                   let newQuantity = existingQuantity + +req.body.quantity;
+//                   model.productSuppliers
+//                     .update(
+//                       {
+//                         remainingQuantity: model.sequelize.literal(
+//                           `remainingQuantity + ${req.body.quantity}`
+//                         ),
+//                       },
+//                       {
+//                         where: {
+//                           productId: id,
+//                           supplierId: req.body.supplierId,
+//                         },
+//                       }
+//                     )
+//                     .then((update) => {
+//                       console.log(id);
+//                       res.status(200).json({
+//                         message: "stock updated succcessfully!",
+//                       });
+//                     });
+//                 } else {
+//                   const createProductSupplier = model.productSuppliers.create({
+//                     productId: existProduct.id,
+//                     supplierId: req.body.supplierId,
+//                     remainingQuantity: req.body.quantity,
+//                   });
+
+//                   return res.status(201).json({
+//                     createProductSupplier: createProductSupplier,
+//                   });
+//                 }
+//               });
+//           })
+//           .catch((err) => {
+//             res.status(500).json({
+//               message: err.message,
+//               err,
+//             });
+//           });
+//       } else {
+//         model.sequelize.transaction(async (transaction) => {
+//           // Create a new product
+//           const newProduct = await model.products.create(product, {
+//             transaction,
+//           });
+
+//           // Create a new productsupplier
+//           const createProductSupplier = await model.productSuppliers.create(
+//             {
+//               productId: newProduct.id,
+//               supplierId: req.body.supplierId,
+//               remainingQuantity: newProduct.quantity,
+//             },
+//             { transaction }
+//           );
+//           return res.status(201).json({
+//             newProduct,
+//             createProductSupplier,
+//           });
+//         });
+
+//         // model.products
+//         //   .create(product)
+//         //   .then((Result) => {
+//         //     res.status(200).json({
+//         //       message: "product added successfully",
+//         //       result: product,
+//         //     });
+//         //   })
+//       }
+//     })
+//     .catch((err) => {
+//       res.status(500).json({
+//         message: err.message,
+//         err,
+//       });
+//     });
+// };
+
+
 const addproduct = async (req, res) => {
   const product = {
     productName: req.body.productName,
@@ -10,88 +123,83 @@ const addproduct = async (req, res) => {
     image: req.file ? req.file.path : null,
   };
 
-  await model.products
-    .findOne({ where: { productName: req.body.productName } })
-    .then((existProduct) => {
-      if (existProduct) {
-        model.productSuppliers
-          .findAll({ where: { productId: existProduct.id } })
-          .then((result) => {
-            model.productSuppliers
-              .findOne({ where: { supplierId: req.body.supplierId } })
-              .then((existProductSupplier) => {
-                // console.log(existProductSupplier.productId);
+  try {
+    const existProduct = await model.products.findOne({
+      where: { productName: req.body.productName },
+    });
 
-                if (existProductSupplier) {
-                  let existingQuantity = +existProductSupplier.remainingQuantity;
-                  let newQuantity = existingQuantity + +req.body.quantity;
-                  model.productSuppliers
-                    .update(
-                      { remainingQuantity: newQuantity },
-                      { where: { supplierId: existProductSupplier.supplierId } }
-                    )
-                    .then((update) => {
-                      res.status(200).json({
-                        message: "stock updated succcessfully!",
-                      });
-                    });
-                } else {
-                  const createProductSupplier = model.productSuppliers.create({
-                    productId: existProduct.id,
-                    supplierId: req.body.supplierId,
-                    remainingQuantity: req.body.quantity,
-                  });
+    if (existProduct) {
+      const id = existProduct.id;
+      const oldQuantity = existProduct.quantity;
+      const updateQuantity = oldQuantity + req.body.quantity;
 
-                  return res.status(201).json({
-                    createProductSupplier:createProductSupplier,
-                  });
-                }
-              });
-          })
-          .catch((err) => {
-            res.status(500).json({
-              message: err.message,
-              err,
-            });
-          });
+      await model.products.update(
+        { quantity: updateQuantity },
+        { where: { id } }
+      );
+
+      const [numUpdated] = await model.productSuppliers.update(
+        {
+          remainingQuantity: model.sequelize.literal(
+            `remainingQuantity + ${req.body.quantity}`
+          ),
+        },
+        {
+          where: {
+            productId: id,
+            supplierId: req.body.supplierId,
+          },
+        }
+      );
+
+      if (numUpdated > 0) {
+        res.status(200).json({
+          message: "Stock updated successfully!",
+        });
       } else {
-        model.sequelize.transaction(async (transaction) => {
-          // Create a new product
-          const newProduct = await model.products.create(product, {
-            transaction,
-          });
-
-          // Create a new productsupplier
-          const createProductSupplier = await model.productSuppliers.create(
-            {
-              productId: newProduct.id,
-              supplierId: req.body.supplierId,
-              remainingQuantity: newProduct.quantity,
-            },
-            { transaction }
-          );
-          return res.status(201).json({
-            newProduct,
-            createProductSupplier,
-          });
+        const createProductSupplier = await model.productSuppliers.create({
+          productId: id,
+          supplierId: req.body.supplierId,
+          remainingQuantity: req.body.quantity,
         });
 
-        // model.products
-        //   .create(product)
-        //   .then((Result) => {
-        //     res.status(200).json({
-        //       message: "product added successfully",
-        //       result: product,
-        //     });
-        //   })
+        res.status(201).json({
+          message: "Stock updated successfully!",
+          createProductSupplier,
+        });
       }
-    })
-    .catch((err) => {
-      res.status(500).json({
-        message: err.message,
-        err,
+    } else {
+      await model.sequelize.transaction(async (transaction) => {
+        const newProduct = await model.products.create(product, {
+          transaction,
+        });
+
+        const createProductSupplier = await model.productSuppliers.create(
+          {
+            productId: newProduct.id,
+            supplierId: req.body.supplierId,
+            remainingQuantity: newProduct.quantity,
+          },
+          { transaction }
+        );
+
+        res.status(201).json({
+          message: "Product and stock added successfully!",
+          newProduct,
+          createProductSupplier,
+        });
       });
+    }
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+      error,
     });
+  }
+};
+
+module.exports = {
+  addproduct,
 };
 
 //read all product
