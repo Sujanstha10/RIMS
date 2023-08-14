@@ -10,8 +10,8 @@ import { userLogin } from "../storage/admin/user/authAction";
 import LoginImg from '../assests/Login.jpg'
 
 const initialValues = {
-  email: "",
-  password: "",
+  email: "superadmin@gmail.com",
+  password: "Superadmin@123",
 };
 
 const Login = () => {
