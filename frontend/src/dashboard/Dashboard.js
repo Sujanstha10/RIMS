@@ -11,6 +11,8 @@ import DashboardHome from "./DashboardHome";
 import EditProduct from "./sidebar/Products/EditProduct";
 import AddUser from "./sidebar/User/AddUser";
 import EditUser from '../dashboard/sidebar/User/EditUser'
+import Supplier from "./sidebar/Suppliers/Supplier";
+import AddSupplier from "./sidebar/Suppliers/AddSuplier";
 const Dashboard = () => {
   const dispatch = useDispatch();
 
@@ -31,6 +33,8 @@ const Dashboard = () => {
               <Route path='/user/edit/:id' element={<EditUser />} />
               <Route path='/customers' element={<User />} />
               <Route path='/customers/add' element={<AddUser />} />
+              <Route path='/suppliers' element={<Supplier />} />
+              <Route path='/suppliers/add' element={<AddSupplier />} />
             </Routes>
           </div>
         </div>
