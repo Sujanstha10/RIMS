@@ -14,10 +14,11 @@ const ProductTable = ({ color }) => {
   useEffect(() => {
     dispatch(ProductAll()).then((res) => {
       console.log(res);
-    })
+    });
   }, []);
 
   const { loading, products, error } = useSelector((state) => state.products);
+
   const base_url = "http://localhost:4000/";
   const handleDeleteClick = (id) => {
     setBikeId(id);
@@ -38,7 +39,6 @@ const ProductTable = ({ color }) => {
             >
               SN
             </th>
-
 
             <th
               className={
@@ -100,7 +100,7 @@ const ProductTable = ({ color }) => {
             products.map((product, i) => {
               return (
                 <tr key={product.id}>
-                  <td className='items-center p-4 px-6  align-middle border-t-0 border-l-0 border-r-0 text-md whitespace-nowrap text-center'>
+                  <td className='items-center p-4 px-6 text-center align-middle border-t-0 border-l-0 border-r-0 text-md whitespace-nowrap'>
                     {i + 1}
                   </td>
                   <td className='items-center p-4 px-6 text-left align-middle border-t-0 border-l-0 border-r-0 text-md whitespace-nowrap'>
@@ -117,9 +117,7 @@ const ProductTable = ({ color }) => {
                   </td>
 
                   <td className='items-center p-4 px-6 text-left align-middle border-t-0 border-l-0 border-r-0 text-md whitespace-nowrap'>
-                    <div className='flex'>
-                      {product.productName}
-                    </div>
+                    <div className='flex'>{product.productName}</div>
                   </td>
 
                   <td className='items-center p-4 px-6 text-center align-middle border-t-0 border-l-0 border-r-0 text-md whitespace-nowrap'>

@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addProduct } from "../../../redux/features/Products/productAction";
 import { clearFields } from "../../../redux/features/Products/productSlice";
+import { supplierAll } from "../../../redux/features/Supplier/supplierAction";
 import Spinner from "../../../Helper/Spinner";
 
 const AddProduct = () => {
@@ -19,6 +20,11 @@ const AddProduct = () => {
   };
 
   const { loading, error, success } = useSelector((state) => state.products);
+  const {
+    loading: supplierLoading,
+    suppliers,
+    error: supplierError,
+  } = useSelector((state) => state.suppliers);
 
   useEffect(() => {
     if (success) {
@@ -29,7 +35,11 @@ const AddProduct = () => {
   const handleBack = async () => {
     navigate(-1);
   };
-
+  useEffect(() => {
+    dispatch(supplierAll()).then((res) => {
+      console.log(res.payload);
+    });
+  }, []);
   return (
     <AddEditWrapper
       title='Product'
@@ -44,6 +54,7 @@ const AddProduct = () => {
           productName: "",
           quantity: "",
           unitPrice: "",
+          supplierId: "",
           image: null,
         }}
         validationSchema={ValidateBikeAdd}
@@ -53,6 +64,7 @@ const AddProduct = () => {
           formdata.append("quantity", parseInt(values.quantity));
           formdata.append("image", values.image);
           formdata.append("unitPrice", parseInt(values.unitPrice));
+          formdata.append("supplierId", values.supplierId);
           console.log(values);
           await dispatch(addProduct(formdata));
           await dispatch(clearFields());
@@ -127,7 +139,34 @@ const AddProduct = () => {
                   <ErrorMessage name='unitPrice' />
                 </span>
               </div>
-
+              <div className='w-full px-3 py-3 lg:w-6/12'>
+                <div className='relative w-full mb-3'>
+                  <label className='block mb-2 text-xs font-bold uppercase text-blueGray-600'>
+                    Supplier's Name
+                  </label>
+                  <select
+                    className='w-full px-3 py-3 text-sm transition-all duration-150 ease-linear bg-white border-0 rounded shadow placeholder-blueGray-300 text-blueGray-600 focus:outline-none'
+                    name='supplierId'
+                    onChange={props.handleChange}
+                    onBlur={props.handleBlur}
+                    value={props.values.supplierId}
+                    autoComplete='off'
+                  >
+                    <option value=''>Select</option>
+                    {suppliers.length !== 0 &&
+                      suppliers.map((item, i) => {
+                        return (
+                          <>
+                            <option value={item.id}>{item.supplierName}</option>
+                          </>
+                        );
+                      })}
+                  </select>
+                </div>
+                <span className='text-red-500 error'>
+                  <ErrorMessage name='supplierId' />
+                </span>
+              </div>
               <div className='w-full px-3 py-3 lg:w-3/12'>
                 <div className='relative w-full mb-3 '>
                   <label
