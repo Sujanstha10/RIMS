@@ -1,23 +1,40 @@
 const model = require("../models");
 
-const addStock = (req, res) => {
-  model.productSuppliers
+const addStock = async(req, res) => {
+  model.products
     .findOne({ where: { id: req.params.id } })
     .then((result) => {
-      let existingQuantity = +result.remainingQuantity;
+      if(result){
+         model.sequelize.transaction(async (transaction) => {
+           let existingQuantity = +result.quantity;
+     
+           let newQuantity = existingQuantity + +req.body.quantity;
+           model.products
+             .update(
+               { quantity: newQuantity },
+               { where: { id: req.params.id }},{transaction} 
+             )
 
-      let newQuantity = existingQuantity + +req.body.remainingQuantity;
-      model.productSuppliers
-        .update(
-          { remainingQuantity: newQuantity },
-          { where: { id: req.params.id } }
-        )
-        .then((update) => {
-          res.status(200).json({
-            message: "stock updated succcessfully!",
-          });
+
+             const createProductSupplier = await model.productSuppliers.create(
+              {
+                productId: result.id,
+                supplierId: req.body.supplierId,
+                remainingQuantity: req.body.quantity,
+              },
+              { transaction }
+            );   
+                 res.status(201).json({
+              message: "stock added successfully!",
+            });
         });
+      }else{
+        res.status(200).json({
+          message: "product not found",
+        });
+      }
     })
+        
 
     .catch((error) => {
       res.status(500).json({
