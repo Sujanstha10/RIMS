@@ -65,7 +65,7 @@ const showProductSupplierById = (req, res) => {
         {
           model: model.products,
           attributes: ["productName"],
-          through: { attributes: ["remainingQuantity"] }, // Include remainingQuantity from the junction table
+          through: { attributes: ["remainingQuantity"],as:"qunatity" }, // Include remainingQuantity from the junction table
         },
       ],
       attributes: ["supplierName"],
