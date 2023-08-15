@@ -218,9 +218,11 @@ const showProductOrder = (req, res) => {
             {
               model: model.customer,
               attributes: ["name"],
+              as:"customer",
             },
           ],
           attributes: { exclude: ["createdAt", "updatedAt", "id"] },
+         
         },
         {
           model: model.products,

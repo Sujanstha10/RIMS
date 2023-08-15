@@ -4,7 +4,7 @@ const productSupplierController = require("../controller/productSupplier.contoll
 const verifyMiddleware = require("../middleware/verifacation");
 const imageUpload = require("../helpers/image-uploader");
 
-router.put("/:id",productSupplierController.addStock)
+router.put("/addstock/:id",productSupplierController.addStock)
 router.get("/",productSupplierController.showProductSupplier)
 router.get("/:id",productSupplierController.showProductSupplierById)
 // router.get("/total",productSupplierController.fetchSimilarProductsAndCalculateTotal)
