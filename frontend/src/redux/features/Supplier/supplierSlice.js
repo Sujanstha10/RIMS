@@ -1,3 +1,5 @@
+
+
 // the data returned form add supplier api aint stored in the redux because such data is not
 // needed
 
@@ -92,30 +94,6 @@ const supplierSlice = createSlice({
 
 
   },
-  [addSupplier.fulfilled]: (state, { payload }) => {
-    state.loading = false;
-    state.success = true;
-  },
-  [addSupplier.rejected]: (state, { payload }) => {
-    state.loading = false;
-    state.error = payload;
-  },
-
-  [supplierAll.pending]: (state, { payload }) => {
-    state.loading = true;
-    state.error = null;
-    // state.suppliers = payload
-  },
-  [supplierAll.fulfilled]: (state, { payload }) => {
-    state.loading = false;
-    state.success = true;
-    state.suppliers = payload;
-  },
-  [supplierAll.rejected]: (state, { payload }) => {
-    state.loading = false;
-    state.error = payload;
-  },
-},
 });
 export const { clearFields, clearSupplierById } = supplierSlice.actions;
 export default supplierSlice.reducer;
