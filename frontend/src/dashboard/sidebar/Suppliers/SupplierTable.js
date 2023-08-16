@@ -30,12 +30,12 @@ const SupplierTable = ({ color }) => {
     };
     return (
         <>
-            <table className='items-center w-full bg-white border-collapse'>
-                <thead>
-                    <tr>
+            <table className='items-center w-full mx-auto bg-white border-collapse '>
+                <thead className="">
+                    <tr className="">
                         <th
                             className={
-                                "px-6 border flex items-center justify-center border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold " +
+                                "px-6 border flex  items-center justify-center border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold " +
                                 (color === "light"
                                     ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
                                     : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
@@ -47,18 +47,30 @@ const SupplierTable = ({ color }) => {
 
                         <th
                             className={
-                                "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                                "px-6 align-middle  border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
                                 (color === "light"
                                     ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
                                     : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
                             }
                         >
-                            Name
+                            Supplier's Name
+                        </th>
+
+
+                        <th
+                            className={
+                                "px-6  align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                                (color === "light"
+                                    ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
+                                    : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
+                            }
+                        >
+                            Shop Name
                         </th>
 
                         <th
                             className={
-                                "px-6 align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
+                                "px-6  align-middle border border-solid py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left " +
                                 (color === "light"
                                     ? "bg-blueGray-50 text-blueGray-500 border-blueGray-100"
                                     : "bg-lightBlue-800 text-lightBlue-300 border-lightBlue-700")
@@ -66,6 +78,8 @@ const SupplierTable = ({ color }) => {
                         >
                             Contact Number
                         </th>
+
+
 
                         <th
                             className={
@@ -85,28 +99,36 @@ const SupplierTable = ({ color }) => {
                     {suppliers && suppliers.length !== 0 ? (
                         suppliers?.map((product, i) => {
                             return (
-                                <tr key={product.id}>
+                                <tr key={product.id} className="">
                                     <td className='items-center p-4 px-6  align-middle border-t-0 border-l-0 border-r-0 text-md whitespace-nowrap text-center'>
                                         {i + 1}
                                     </td>
 
 
-                                    <td className='items-center p-4 px-6 text-left align-middle border-t-0 border-l-0 border-r-0 text-md whitespace-nowrap'>
+                                    <td className='items-center px-6 text-left align-middle border-t-0 border-l-0 border-r-0 text-md whitespace-nowrap'>
                                         <div className='flex'>
                                             {product.supplierName}
                                         </div>
                                     </td>
 
-                                    <td className='items-center p-4 px-6 text-center align-middle border-t-0 border-l-0 border-r-0 text-md whitespace-nowrap'>
-                                        {product.contacNumber}
+                                    <td className='items-center p-4 px-6 text-left align-middle border-t-0 border-l-0 border-r-0 text-md whitespace-nowrap'>
+                                        <div className='flex'>
+                                            {product.contactPerson}
+                                        </div>
                                     </td>
 
-                                    <td className='items-center p-4 px-6 text-center align-middle border-t-0 border-l-0 border-r-0 text-md whitespace-nowrap'>
-                                        {product.unitPrice}
+                                    <td className='items-center p-4 px-6 text-left align-middle border-t-0 border-l-0 border-r-0 text-md whitespace-nowrap'>
+                                        <div className='flex'>
+                                            {product.contacNumber}
+                                        </div>
                                     </td>
-                                    <td className='p-4 px-6 text-xs align-middle border-t-0 border-l-0 border-r-0 whitespace-nowrap'>
-                                        <div className='flex justify-center gap-5'>
+
+
+                                    <td className='p-4 px-6 text-xs align-middle border-t-0 border-l-0 border-r-0 whitespace-nowrap '>
+                                        <div className='flex justify-center gap-3 font-semibold items-center'>
+                                            Edit
                                             <Link to={`/dashboard/suppliers/edit/${product.id}`}>
+
                                                 <svg
                                                     xmlns='http://www.w3.org/2000/svg'
                                                     class='icon icon-tabler icon-tabler-edit'
@@ -125,32 +147,6 @@ const SupplierTable = ({ color }) => {
                                                     <line x1='16' y1='5' x2='19' y2='8' />
                                                 </svg>
                                             </Link>
-                                            <button
-                                                type='button'
-                                                onClick={() => {
-                                                    handleDeleteClick(product.id);
-                                                }}
-                                            >
-                                                <svg
-                                                    xmlns='http://www.w3.org/2000/svg'
-                                                    class='icon icon-tabler icon-tabler-trash'
-                                                    width='24'
-                                                    height='24'
-                                                    viewBox='0 0 24 24'
-                                                    strokeWidth='1.5'
-                                                    stroke='#ff2825'
-                                                    fill='none'
-                                                    strokeLinecap='round'
-                                                    strokeLinejoin='round'
-                                                >
-                                                    <path stroke='none' d='M0 0h24v24H0z' fill='none' />
-                                                    <line x1='4' y1='7' x2='20' y2='7' />
-                                                    <line x1='10' y1='11' x2='10' y2='17' />
-                                                    <line x1='14' y1='11' x2='14' y2='17' />
-                                                    <path d='M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12' />
-                                                    <path d='M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3' />
-                                                </svg>
-                                            </button>
                                         </div>
                                     </td>
                                 </tr>

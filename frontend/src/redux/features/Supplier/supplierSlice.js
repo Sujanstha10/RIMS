@@ -3,14 +3,14 @@
 
 import { createSlice } from "@reduxjs/toolkit";
 
-import { addSupplier, supplierAll } from "./supplierAction";
+import { addSupplier, editSupplierById, getSupplierById, supplierAll } from "./supplierAction";
 
 const initialState = {
   loading: false,
   error: null,
   success: false,
   suppliers: [],
-  supliersById: null,
+  supplierById: null,
 };
 
 const supplierSlice = createSlice({
@@ -23,6 +23,10 @@ const supplierSlice = createSlice({
       state.error = false;
       // state.userById = null;
     },
+    clearSupplierById: (state) => {
+      state.supplierById = null
+
+    }
   },
   extraReducers: {
     // register bike
@@ -47,13 +51,71 @@ const supplierSlice = createSlice({
     [supplierAll.fulfilled]: (state, { payload }) => {
       state.loading = false;
       state.success = true;
-      state.suppliers = payload;
+      state.suppliers = payload
     },
     [supplierAll.rejected]: (state, { payload }) => {
       state.loading = false;
       state.error = payload;
     },
+
+
+
+    [getSupplierById.pending]: (state, { payload }) => {
+      state.loading = true;
+      state.error = null;
+      // state.suppliers = payload
+    },
+    [getSupplierById.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      // state.success = true;
+      state.supplierById = payload
+    },
+    [getSupplierById.rejected]: (state, { payload }) => {
+      state.loading = false;
+      state.error = payload;
+    },
+
+    [editSupplierById.pending]: (state, { payload }) => {
+      state.loading = true;
+      state.error = null;
+      state.suppliers = payload
+    },
+    [editSupplierById.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.success = true;
+      state.supplierById = payload
+    },
+    [editSupplierById.rejected]: (state, { payload }) => {
+      state.loading = false;
+      state.error = payload;
+    },
+
+
   },
+  [addSupplier.fulfilled]: (state, { payload }) => {
+    state.loading = false;
+    state.success = true;
+  },
+  [addSupplier.rejected]: (state, { payload }) => {
+    state.loading = false;
+    state.error = payload;
+  },
+
+  [supplierAll.pending]: (state, { payload }) => {
+    state.loading = true;
+    state.error = null;
+    // state.suppliers = payload
+  },
+  [supplierAll.fulfilled]: (state, { payload }) => {
+    state.loading = false;
+    state.success = true;
+    state.suppliers = payload;
+  },
+  [supplierAll.rejected]: (state, { payload }) => {
+    state.loading = false;
+    state.error = payload;
+  },
+},
 });
-export const { clearFields } = supplierSlice.actions;
+export const { clearFields, clearSupplierById } = supplierSlice.actions;
 export default supplierSlice.reducer;

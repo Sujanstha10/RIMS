@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 // import UserDropdown from "../../Components/Dropdowns/UserDropdown.js";
 // import Spinner from "../../Helper/Spinner.js";
 import { MdOutlineDashboardCustomize } from 'react-icons/md'
-import { FaPersonBooth } from 'react-icons/fa'
+import { FaFirstOrder, FaPersonBooth } from 'react-icons/fa'
 
 export default function Sidebar() {
   const [collapseShow, setCollapseShow] = React.useState("hidden");
@@ -92,7 +92,7 @@ export default function Sidebar() {
             <ul className='flex flex-col list-none md:flex-col md:min-w-full md:mb-4 '>
               <li className='items-center hover:underline'>
                 <Link
-                  className='flex items-center py-3 text-xs font-bold uppercase'
+                  className='flex items-center py-3 text-sm font-bold uppercase'
                   to='/dashboard/customers'
                 >
                   <svg
@@ -101,7 +101,7 @@ export default function Sidebar() {
                     viewBox='0 0 24 24'
                     strokeWidth={1.5}
                     stroke='currentColor'
-                    className='w-6 h-6 mr-2'
+                    className='w-7 h-7 mr-2'
                   >
                     <path
                       strokeLinecap='round'
@@ -113,10 +113,12 @@ export default function Sidebar() {
                 </Link>
               </li>
             </ul>
-            <ul className='flex flex-col list-none md:flex-col md:min-w-full md:mb-4 '>
+
+
+            <ul className='flex flex-col list-none md:flex-col md:min-w-full md:mb-4  -ml-1'>
               <li className='items-center hover:underline'>
                 <Link
-                  className='flex items-center text-xs font-bold uppercase'
+                  className='flex items-center text-sm font-bold uppercase '
                   to='/dashboard/products'
                 >
                   <svg
@@ -125,7 +127,7 @@ export default function Sidebar() {
                     viewBox='0 0 24 24'
                     strokeWidth={1.5}
                     stroke='currentColor'
-                    className='w-6 h-6 mr-2'
+                    className='w-9 h-9 mr-2'
                   >
                     <path
                       strokeLinecap='round'
@@ -138,49 +140,37 @@ export default function Sidebar() {
               </li>
             </ul>
 
-            <ul className='flex flex-col list-none md:flex-col md:min-w-full md:mb-4 mt-2'>
+            <ul className='flex flex-col list-none md:flex-col md:min-w-full md:mb-4 mt-4'>
               <li className='items-center hover:underline px-[1px]'>
                 <Link
-                  className='flex items-center text-xs font-bold uppercase gap-3'
+                  className='flex items-center text-sm font-bold uppercase gap-3 '
                   to='/dashboard/suppliers'
                 >
-                  <FaPersonBooth className="text-xl" />
+                  <FaPersonBooth className="text-3xl" />
                   Supplier
                 </Link>
               </li>
             </ul>
 
 
-            <ul className='flex flex-col list-none md:flex-col md:min-w-full md:mb-4 mt-2'>
+            <ul className='flex flex-col list-none md:flex-col md:min-w-full md:mb-4 mt-4'>
               <li className='items-center hover:underline'>
                 <Link
-                  className='flex items-center text-xs font-bold uppercase'
+                  className='flex items-center text-sm font-bold uppercase gap-3'
                   to='/dashboard/products'
                 >
-                  <svg
-                    xmlns='http://www.w3.org/2000/svg'
-                    fill='none'
-                    viewBox='0 0 24 24'
-                    strokeWidth={1.5}
-                    stroke='currentColor'
-                    className='w-6 h-6 mr-2'
-                  >
-                    <path
-                      strokeLinecap='round'
-                      strokeLinejoin='round'
-                      d='M9 12.75l3 3m0 0l3-3m-3 3v-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z'
-                    />
-                  </svg>
+
+                  <FaFirstOrder className="text-3xl" />
                   Orders
                 </Link>
               </li>
             </ul>
 
 
-            <ul className='flex flex-col list-none md:flex-col md:min-w-full md:mb-4 mt-2'>
+            {/* <ul className='flex flex-col list-none md:flex-col md:min-w-full md:mb-4 mt-2'>
               <li className='items-center hover:underline'>
                 <Link
-                  className='flex items-center text-xs font-bold uppercase'
+                  className='flex items-center text-sm font-bold uppercase'
                   to='/dashboard/products'
                 >
                   <svg
@@ -200,7 +190,7 @@ export default function Sidebar() {
                   Stocks
                 </Link>
               </li>
-            </ul>
+            </ul> */}
 
           </div>
         </div>
