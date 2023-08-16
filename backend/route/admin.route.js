@@ -10,6 +10,7 @@ const token = require("../middleware/verifacation")
 
 router.post("/login",validateAdmin,adminController.login)
 router.get("/me",token.verification,adminController.profile)
+router.get("/",adminController.allcount)
 
 
 

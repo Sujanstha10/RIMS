@@ -27,6 +27,7 @@ app.use("/supplier", supplier);
 app.use("/customer", customer);
 app.use("/stock",productSupplier );
 app.use("/order",order);
+app.use("/count",admin)
 app.use("/uploads", express.static(__dirname + "/uploads"));
 
 
