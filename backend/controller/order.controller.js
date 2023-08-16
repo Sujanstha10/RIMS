@@ -123,7 +123,7 @@ const addOrder = async (req, res) => {
       const productUpdates = [];
 
       const filteredOrder = orders.filter((item) => item.quantity !== 0);
-      console.log(filteredOrder);
+      // console.log(filteredOrder);
 
       // Populate the productUpdates array
       filteredOrder.forEach((item) => {
@@ -133,8 +133,14 @@ const addOrder = async (req, res) => {
           unitPrice: item.unitPrice,
           total: item.unitPrice * item.quantity,
         });
-        // console.log(item)
       });
+      // console.log(productUpdates[0].total)
+      let totalAmt = 0;
+      productUpdates.forEach((item)=>{
+        totalAmt +=item.total
+      })
+      // console.log(totalAmt)
+
 
       // Update product quantities
       await Promise.all(
@@ -165,7 +171,7 @@ const addOrder = async (req, res) => {
               total: item.unitPrice * item.quantity,
             };
 
-            await model.productOrder.create(newProdcutOrder, { transaction });
+            await model.productOrder.create(newProdcutOrder, { transaction })
           }
         })
       );
@@ -197,6 +203,7 @@ const addOrder = async (req, res) => {
         return res.status(200).json({
           orderPlaced: filteredOrder,
           message: "Order placed successfully.",
+          totalAmt:totalAmt
         });
       }
     });
