@@ -27,9 +27,7 @@ const TableWrapper = ({
           </Link>
         </div>
       </div>
-      <div className='flex-auto px-4 py-10 pt-0 bg-white lg:px-10'>
-        {children}
-      </div>
+      <div className='flex-auto px-6 py-10 pt-0 bg-white '>{children}</div>
     </div>
   );
 };

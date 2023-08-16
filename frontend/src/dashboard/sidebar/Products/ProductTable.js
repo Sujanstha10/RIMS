@@ -25,7 +25,13 @@ const ProductTable = ({ color }) => {
     setShowModal(true);
   };
   return (
-    <>
+    <div>
+      <Link
+        className='float-right px-6 py-2 mb-2 mr-1 text-xs font-bold text-white uppercase transition-all duration-150 ease-linear bg-blue-400 rounded shadow outline-none active:bg-red-600 hover:shadow-md focus:outline-none'
+        to='#'
+      >
+        Add Stock
+      </Link>
       <table className='items-center w-full bg-white border-collapse'>
         <thead>
           <tr>
@@ -189,7 +195,7 @@ const ProductTable = ({ color }) => {
         </tbody>
       </table>
       {showModal && <DeleteProduct id={bikeId} setShowModal={setShowModal} />}
-    </>
+    </div>
   );
 };
 
