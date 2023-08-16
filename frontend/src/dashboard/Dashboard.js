@@ -13,6 +13,7 @@ import AddUser from "./sidebar/User/AddUser";
 import EditUser from '../dashboard/sidebar/User/EditUser'
 import Supplier from "./sidebar/Suppliers/Supplier";
 import AddSupplier from "./sidebar/Suppliers/AddSuplier";
+import EditSupplier from "./sidebar/Suppliers/EditSupplier";
 const Dashboard = () => {
   const dispatch = useDispatch();
 
@@ -26,6 +27,7 @@ const Dashboard = () => {
           {/* <Headerstats /> */}
           <div className='w-full px-0 pt-20 mx-auto -mt-20 '>
             <Routes>
+
               <Route path='/' element={<DashboardHome />} />
               <Route path='/products' element={<Product />} />
               <Route path='/products/add' element={<AddProduct />} />
@@ -35,6 +37,7 @@ const Dashboard = () => {
               <Route path='/customers/add' element={<AddUser />} />
               <Route path='/suppliers' element={<Supplier />} />
               <Route path='/suppliers/add' element={<AddSupplier />} />
+              <Route path='/suppliers/edit/:id' element={<EditSupplier />} />
             </Routes>
           </div>
         </div>
