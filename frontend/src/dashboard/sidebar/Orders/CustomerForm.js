@@ -1,14 +1,37 @@
-import React from 'react'
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Formik, ErrorMessage } from "formik";
+import { customerRegister } from "../../../redux/features/Customer/customerAction";
+import Spinner from "../../../Helper/Spinner";
+import { ValidateUser } from "../../../Validation/Validation";
+import { useEffect } from "react";
+import AddEditWrapper from "../../common/AddEditWrapper";
+import { toast } from "react-hot-toast";
 
 const CustomerForm = () => {
+    const dispatch = useDispatch();
+
+    const { loading, error, success } = useSelector((state) => state.auth);
+    const navigate = useNavigate()
+
+    const handleBack = async () => {
+        navigate(-1);
+    };
+    useEffect(() => {
+        if (success) {
+            navigate(-1);
+        }
+    }, [success]);
+
     return (
         <AddEditWrapper
-            title='User'
+            title='Customer'
             error={error}
             method='create'
             success={success}
             handleBack={handleBack}
-            backlink='/dashboards/customers'
+            backlink='/dashboards/order'
         >
             <Formik
                 initialValues={{
@@ -138,7 +161,7 @@ const CustomerForm = () => {
                                         type='submit'
                                         className='px-4 py-2 mr-1 text-xs font-bold text-white uppercase transition-all duration-150 ease-linear bg-blue-400 rounded shadow outline-none bg-lightBlue-500 hover:shadow-md focus:outline-none'
                                     >
-                                        Register
+                                        Add Information
                                     </button>
                                 )}
                             </div>

@@ -1,44 +1,55 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Spinner from "../../../Helper/Spinner";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { ProductAll } from "../../../redux/features/Products/productAction";
+import CustomerForm from "./CustomerForm";
+import { getCustomerById } from "../../../redux/features/Customer/customerAction";
 
 const AddOrder = ({ color }) => {
     const [showModal, setShowModal] = useState(false);
+    const [qtyError, setQtyError] = useState('')
     const [bikeId, setBikeId] = useState();
     const dispatch = useDispatch();
 
-    // const [productDetails, setProductDetails] = useState({
-    //     price: '',
-    //     quantity: ''
-    // })
+    const location = useLocation();
+    const searchParams = new URLSearchParams(location.search);
+    const id = searchParams.get('customer');
     const [selectedItems, setSelectedItems] = useState([]);
+    const { customerById } = useSelector(state => state.customers)
 
 
 
     useEffect(() => {
+        dispatch(getCustomerById(id))
         dispatch(ProductAll()).then((res) => {
-            console.log(res);
+            // console.log(res);
         });
     }, []);
 
     const { loading, products, error } = useSelector((state) => state.products);
 
     const handleQuantityChange = (selectedProduct, quantity) => {
-        console.log('hi');
-        console.log(selectedProduct);
         setSelectedItems(prevSelected => {
             const updatedItems = [...prevSelected];
             const itemIndex = updatedItems.findIndex(item => item.productId === selectedProduct.id);
-            console.log(updatedItems);
+
             if (itemIndex !== -1) {
+                if (selectedProduct.quantity < quantity) {
+                    updatedItems[itemIndex].qtyError = `${selectedProduct.quantity} remaining`
+                }
+                else if (selectedProduct.quantity === 0) {
+                    updatedItems[itemIndex].qtyError = `Out of stock`
+                }
+
+                else {
+                    updatedItems[itemIndex].qtyError = ""; // Clear the error message if quantity is valid
+                }
+
                 updatedItems[itemIndex].quantity = parseInt(quantity) || 0;
             }
-            if (itemIndex !== -1) {
-                updatedItems[itemIndex].quantity = parseInt(quantity) || 0;
-            }
+
             return updatedItems;
         });
     };
@@ -73,18 +84,99 @@ const AddOrder = ({ color }) => {
         if (isSelected) {
             setSelectedItems(prevSelected => prevSelected.filter(item => item.productId !== selectedProduct.id));
         } else {
-            const newItem = { productId: selectedProduct.id, quantity: 1, price: 0 };
+            const newItem = { productId: selectedProduct.id, quantity: 0, price: 0 };
             console.log(newItem);
             setSelectedItems(prevSelected => [...prevSelected, newItem]);
         }
     };
 
+    const handleOrder = () => {
+
+        // console.log(selectedItems);
+        if (selectedItems.length === 0) {
+            toast.error("Please select at least one product.")
+            return
+        }
+
+        const filterOrderItems = selectedItems.some((item) => {
+            console.log(item);
+            return item.qtyError.length > 0
+        }
+        )
+        console.log(filterOrderItems);
+        if (filterOrderItems) {
+            toast.error("No order placed.")
+            return
+        }
+
+
+    }
+
 
     return (
-        <>
-            <AddOrder />
+        <div className=" pb-15">
+            <h6 className=' mb-6 text-lg ml-16 mt-5 font-bold uppercase text-blueGray-400'>
+                Customer Information
+            </h6>
 
-            <table className='items-center w-full bg-white border-collapse'>
+            <div className='w-full py-3 lg:w-full flex justify-evenly gap-10 px-10'>
+                <div className='relative w-full mb-3'>
+                    <label
+                        className='block mb-2 text-xs font-bold uppercase text-blueGray-600 '
+                        htmlFor='grid-password'
+                    >
+                        Full Name
+                    </label>
+
+                    <div className='w-full px-3 py-2 text-sm border border-gray-300 transition-all duration-150 ease-linear bg-white rounded shadow placeholder-blueGray-300 text-blueGray-600 focus:outline-none focus:ring' >
+                        {customerById?.name}
+
+                    </div>
+
+                </div >
+
+
+                <div className='relative w-full mb-3'>
+                    <label
+                        className='block mb-2 text-xs font-bold uppercase text-blueGray-600'
+                        htmlFor='grid-password'
+                    >
+                        Phone Number
+                    </label>
+
+                    <div className='w-full px-3 py-2 text-sm border border-gray-300 transition-all duration-150 ease-linear bg-white rounded shadow placeholder-blueGray-300 text-blueGray-600 focus:outline-none focus:ring' >
+                        {customerById?.phone}
+
+
+                    </div>
+
+                </div >
+                <div className='relative w-full mb-3'>
+                    <label
+                        className='block mb-2 text-xs font-bold uppercase text-blueGray-600'
+                        htmlFor='grid-password'
+                    >
+                        Address
+                    </label>
+
+                    <div className='w-full px-3 py-2 text-sm border border-gray-300 transition-all duration-150 ease-linear bg-white rounded shadow placeholder-blueGray-300 text-blueGray-600 focus:outline-none focus:ring' >
+                        {customerById?.address}
+
+                    </div>
+
+                </div >
+
+                <div className='relative w-2/3 mb-3 flex items-center '>
+
+                    <button className="bg-blue-500 px-5 py-2 text-white font-semibold rounded-md hover:bg-blue-400 mt-3 cursor-pointer" onClick={handleOrder}>
+                        Place Order
+                    </button>
+
+
+                </div >
+            </div>
+
+            <table table className='items-center w-full bg-white border-collapse ' >
                 <thead>
                     <tr>
                         <th
@@ -165,12 +257,19 @@ const AddOrder = ({ color }) => {
                                             onChange={(e) => handlePriceChange(product, e.target.value)} />
 
                                     </td>
-
                                     <td className='items-center p-4 px-6 text-center align-middle border-t-0 border-l-0 border-r-0 text-md whitespace-nowrap'>
                                         <span className="p-2 font-bold">x</span>
-                                        <input type="text" className="w-12 border border-gray-300 rounded-md px-2 text-center " value={selectedItems.find(item => item.productId === product.id)?.quantity || ""}
-                                            onChange={(e) => handleQuantityChange(product, e.target.value)} />
-
+                                        <input
+                                            type="number"
+                                            className="w-16 text-center px-2 border border-gray-300 "
+                                            value={selectedItems.find(item => item.productId === product.id)?.quantity || ""}
+                                            onChange={(e) => handleQuantityChange(product, e.target.value)}
+                                        />
+                                        {selectedItems.find(item => item.productId === product.id)?.qtyError && (
+                                            <div className="text-red-500 text-xs mt-1">
+                                                {selectedItems.find(item => item.productId === product.id)?.qtyError}
+                                            </div>
+                                        )}
                                     </td>
 
                                     <td className="flex items-center gap-3 justify-center p-4 ">
@@ -181,6 +280,7 @@ const AddOrder = ({ color }) => {
                                         Check
                                     </td>
 
+
                                 </tr>
                             );
                         })
@@ -190,10 +290,11 @@ const AddOrder = ({ color }) => {
                                 No Data Found!!
                             </td>
                         </tr>
+
                     )}
                 </tbody>
-            </table>
-        </>
+            </table >
+        </div>
     );
 };
 

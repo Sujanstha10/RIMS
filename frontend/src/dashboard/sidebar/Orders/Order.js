@@ -7,7 +7,7 @@ const Order = () => {
         <TableWrapper
             title='Total Suppliers'
             addlink='/dashboard/order/add'
-            link='Add Order'
+        // link='Add Order'
         >
             <OrderTable />
         </TableWrapper>
