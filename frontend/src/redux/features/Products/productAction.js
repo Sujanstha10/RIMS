@@ -84,7 +84,7 @@ export const addStock = createAsyncThunk(
   "bike/addstock",
   async (item, { rejectWithValue }) => {
     try {
-      const data = await Http.put(`/stock/addstock/:${item.id}`, item.formdata);
+      const data = await Http.put(`/stock/addstock/${item.id}`, item.formdata);
       console.log(data.data, "productAction-addstock");
       return data.data;
     } catch (error) {
