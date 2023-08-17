@@ -33,10 +33,7 @@ const addStock = async(req, res) => {
           message: "product not found",
         });
       }
-    })
-        
-
-    .catch((error) => {
+    }).catch((error) => {
       res.status(500).json({
         message: error.message,
         error,
