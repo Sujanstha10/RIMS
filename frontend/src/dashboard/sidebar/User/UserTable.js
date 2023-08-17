@@ -7,6 +7,8 @@ import Spinner from "../../../Helper/Spinner";
 import toast from "react-hot-toast";
 import { customerAll } from "../../../redux/features/Customer/customerAction";
 // import Searchbar from "../../common/Searchbar";
+import { BsFillCartPlusFill } from 'react-icons/bs'
+
 
 // const base_url = "http://localhost:5000/";
 
@@ -104,13 +106,13 @@ const UserTable = () => {
                     {user.phone}
                   </td>
                   <td className='p-4 px-6 text-xs align-middle border-t-0 border-l-0 border-r-0 whitespace-nowrap'>
-                    <div className='flex justify-center'>
+                    <div className='flex justify-center items-center gap-3'>
                       <Link to={`/dashboard/user/edit/${user.id}`}>
                         <svg
                           xmlns='http://www.w3.org/2000/svg'
                           class='icon icon-tabler icon-tabler-edit'
-                          width='24'
-                          height='24'
+                          width='28'
+                          height='28'
                           viewBox='0 0 24 24'
                           strokeWidth='1.5'
                           stroke='#00b341'
@@ -124,6 +126,13 @@ const UserTable = () => {
                           <line x1='16' y1='5' x2='19' y2='8' />
                         </svg>
                       </Link>
+
+
+                      <Link to={{ pathname: '/dashboard/order/add', search: `customer=${user.id}` }}>
+                        <BsFillCartPlusFill className="text-red-500 text-2xl cursor-pointer" />
+                      </Link>
+
+
                     </div>
                   </td>
                 </tr>

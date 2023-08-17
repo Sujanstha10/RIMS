@@ -157,7 +157,7 @@ export default function Sidebar() {
               <li className='items-center hover:underline'>
                 <Link
                   className='flex items-center text-sm font-bold uppercase gap-3'
-                  to='/dashboard/products'
+                  to='/dashboard/orders'
                 >
 
                   <FaFirstOrder className="text-3xl" />

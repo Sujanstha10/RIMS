@@ -61,7 +61,7 @@ const EditProduct = () => {
               unitPrice: productsById.unitPrice,
               image: productsById.image,
             }}
-            validationSchema={ValidateBikeAdd}
+            // validationSchema={ValidateBikeAdd}
             onSubmit={async (values) => {
               let formdata = new FormData();
               formdata.append("productName", values.productName);
@@ -72,6 +72,7 @@ const EditProduct = () => {
                 id: id,
                 formdata: formdata,
               };
+              console.log('hi');
               await dispatch(editProductById(data));
               await dispatch(clearFields());
             }}
