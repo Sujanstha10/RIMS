@@ -106,7 +106,8 @@ const products = require("../models/products");
 const addOrder = async (req, res) => {
   try {
     await model.sequelize.transaction(async (transaction) => {
-      let customerId = req.body.customerId;
+      let customerId = req.params.customerId;
+      const cusotmer = await model.customer.findOne({where:{id:customerId},attributes:["name","phone","address"]})
       let orders = req.body.order;
       const orderNew = await model.order.create(
         {
@@ -135,10 +136,10 @@ const addOrder = async (req, res) => {
         });
       });
       // console.log(productUpdates[0].total)
-      let totalAmt = 0;
-      productUpdates.forEach((item)=>{
-        totalAmt +=item.total
-      })
+        let totalAmt = 0;
+      productUpdates.forEach((item) => {
+        totalAmt += item.total;
+      });
       // console.log(totalAmt)
 
 
@@ -201,6 +202,7 @@ const addOrder = async (req, res) => {
         });
       } else {
         return res.status(200).json({
+          cusotmer:cusotmer,
           orderPlaced: filteredOrder,
           message: "Order placed successfully.",
           totalAmt:totalAmt
