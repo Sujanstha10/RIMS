@@ -52,6 +52,7 @@ export const editProductById = createAsyncThunk(
   "bike/edit",
   async (item, { rejectWithValue }) => {
     try {
+      console.log(item.formdata, item.id, "edit product");
       const data = await Http.put(`/product/update/${item.id}`, item.formdata);
       console.log(data.data, "editproductbyid from productAction");
       return data.data;
@@ -69,6 +70,22 @@ export const deleteProduct = createAsyncThunk(
   async (id, { rejectWithValue }) => {
     try {
       const data = await Http.delete(`/product/delete/${id}`);
+      return data.data;
+    } catch (error) {
+      if (error.response && error.response.data.message) {
+        return rejectWithValue(error.response.data.message);
+      } else {
+        return rejectWithValue(error.message);
+      }
+    }
+  }
+);
+export const addStock = createAsyncThunk(
+  "bike/addstock",
+  async (item, { rejectWithValue }) => {
+    try {
+      const data = await Http.put(`/stock/addstock/:${item.id}`, item.formdata);
+      console.log(data.data, "productAction-addstock");
       return data.data;
     } catch (error) {
       if (error.response && error.response.data.message) {

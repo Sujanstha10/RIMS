@@ -5,6 +5,7 @@ import {
   deleteProduct,
   editProductById,
   getProductById,
+  addStock,
 } from "./productAction";
 
 const initialState = {
@@ -97,6 +98,21 @@ const productSlice = createSlice({
       state.success = true;
     },
     [deleteProduct.rejected]: (state, { payload }) => {
+      state.loading = false;
+      state.error = payload;
+    },
+
+    // add stock
+    //all the bikes
+    [addStock.pending]: (state) => {
+      state.loading = true;
+      state.error = null;
+    },
+    [addStock.fulfilled]: (state, { payload }) => {
+      state.loading = false;
+      state.success = true; //stock added successfully
+    },
+    [addStock.rejected]: (state, { payload }) => {
       state.loading = false;
       state.error = payload;
     },

@@ -29,3 +29,8 @@ export const ValidateBikeAdd = Yup.object().shape({
   image: Yup.mixed().required("Image selection is required"),
   supplierId: Yup.string().required("*Supplier's Name is required"),
 });
+export const ValidateAddStock = Yup.object().shape({
+  productId: Yup.string().required("*Product name is required"),
+  supplierId: Yup.string().required("*Supplier's name is required"),
+  quantity: Yup.number().required("*Quantity is required"),
+});
