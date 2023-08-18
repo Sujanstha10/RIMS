@@ -20,6 +20,7 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       });
+      order.hasMany(models.productOrder)
     }
   }
   order.init(
