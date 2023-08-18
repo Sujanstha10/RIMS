@@ -1,11 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import CardStats from "./CardStats";
+import { useEffect } from "react";
+import axios from "axios";
+import Http from "../../Helper/Http";
 
 const Headerstats = () => {
+  const [count, setCount] = useState({})
+
+  const fetchData = async () => {
+
+    const response = await Http.get('/count')
+    console.log('--------------------------------');
+    // console.log(response);
+    setCount(response.data)
+
+
+
+  }
+  console.log(count);
+  useEffect(() => {
+    fetchData()
+
+  }, [])
+
+
   return (
     <>
       {/* Header */}
-      <div className='relative pt-12 pb-30 bg-[rgb(135,212,221)] md:pt-12 w-full'>
+      <div className='relative pt-12 pb-30 bg-[rgb(135,212,221)] md:pt-12 w-full '>
         <div className='w-full px-4 mx-auto md:px-10'>
           <div>
             {/* Card stats */}
@@ -13,9 +35,9 @@ const Headerstats = () => {
               <div className='w-full px-4 pb-10 lg:w-6/12 xl:w-3/12'>
                 <CardStats
                   statSubtitle='Customers'
-                  statTitle='250'
+                  statTitle={count?.customerPercentage?.totalCount}
                   statArrow='up'
-                  statPercent='3.48'
+                  statPercent={count?.customerPercentage?.percentage.toFixed(2)}
                   statPercentColor='text-emerald-500'
                   statDescripiron='Since last month'
                   statIconName='far fa-chart-bar'
@@ -24,10 +46,10 @@ const Headerstats = () => {
               </div>
               <div className='w-full px-4 lg:w-6/12 xl:w-3/12'>
                 <CardStats
-                  statSubtitle='Inventory '
-                  statTitle='50'
+                  statSubtitle='Products '
+                  statTitle={count?.productsPercentage?.totalCount}
                   statArrow='down'
-                  statPercent='3.48'
+                  statPercent={count?.productsPercentage?.percentage.toFixed(2)}
                   statPercentColor='text-red-500'
                   statDescripiron='Since last week'
                   statIconName='fas fa-chart-pie'
@@ -37,9 +59,9 @@ const Headerstats = () => {
               <div className='w-full px-4 lg:w-6/12 xl:w-3/12'>
                 <CardStats
                   statSubtitle='Orders '
-                  statTitle='20'
+                  statTitle={count?.orderPercentage?.totalCount}
                   statArrow='down'
-                  statPercent='1.10'
+                  statPercent={count?.orderPercentage?.percentage.toFixed(2)}
                   statPercentColor='text-orange-500'
                   statDescripiron='Since yesterday'
                   statIconName='fas fa-users'
@@ -48,10 +70,11 @@ const Headerstats = () => {
               </div>
               <div className='w-full px-4 lg:w-6/12 xl:w-3/12'>
                 <CardStats
-                  statSubtitle='Categories'
-                  statTitle='3'
+                  statSubtitle='Suppliers'
+                  statTitle={count?.supplierPercentage?.totalCount}
+                  statPercent={count?.supplierPercentage?.percentage.toFixed(2)}
+
                   statArrow='up'
-                  statPercent='12'
                   statPercentColor='text-emerald-500'
                   statDescripiron='Since last month'
                   statIconName='fas fa-percent'

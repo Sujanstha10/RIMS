@@ -107,7 +107,7 @@ const addOrder = async (req, res) => {
   try {
     await model.sequelize.transaction(async (transaction) => {
       let customerId = req.params.customerId;
-      const cusotmer = await model.customer.findOne({where:{id:customerId},attributes:["name","phone","address"]})
+      const cusotmer = await model.customer.findOne({ where: { id: customerId }, attributes: ["name", "phone", "address"] })
       let orders = req.body.order;
       const orderNew = await model.order.create(
         {
@@ -136,7 +136,7 @@ const addOrder = async (req, res) => {
         });
       });
       // console.log(productUpdates[0].total)
-        let totalAmt = 0;
+      let totalAmt = 0;
       productUpdates.forEach((item) => {
         totalAmt += item.total;
       });
@@ -177,14 +177,14 @@ const addOrder = async (req, res) => {
         })
       );
       const message = [];
-      
-// const totalAmt=         productUpdates.forEach((item)=>{
-//   let amt = 0;
-//   console.log(amt = amt + item.total)
-  
-// })
 
-        
+      // const totalAmt=         productUpdates.forEach((item)=>{
+      //   let amt = 0;
+      //   console.log(amt = amt + item.total)
+
+      // })
+
+
       if (outOfStockProducts.length > 0) {
         outOfStockProducts.forEach((item, i) => {
           message.push(
@@ -202,10 +202,10 @@ const addOrder = async (req, res) => {
         });
       } else {
         return res.status(200).json({
-          cusotmer:cusotmer,
+          cusotmer: cusotmer,
           orderPlaced: filteredOrder,
           message: "Order placed successfully.",
-          totalAmt:totalAmt
+          totalAmt: totalAmt
         });
       }
     });
@@ -217,43 +217,96 @@ const addOrder = async (req, res) => {
   }
 };
 
-const showProductOrder = (req, res) => {
-  model.productOrder
-    .findAll({
+const showProductOrder = async (req, res) => {
+  // model.productOrder.findAll({
+  //   attributes:["quantity",'unitPrice','total','createdAt'],
+  //   include:[{
+  //             model:model.products,
+  //             attributes:["productName"],
+
+  //           },
+  //           {model:model.order,
+  //             attributes:["id"],
+  //             include:[{
+  //               model:model.customer,
+  //               as:"customer",
+  //               attributes:["name"],
+
+  //             }]
+  //           }],
+  // })
+
+  // model.order
+  //   .findAll({
+  //     attributes: [],
+  //     include: [
+  //       { model: model.customer, as: "customer", attributes: ["name"] },
+  //       {
+  //         model: model.productOrder,
+  //         attributes:["quantity","unitPrice","total"],
+  //         include:[{
+  //           model:model.products,
+  //           attributes:["productName"]
+  //         }]
+  //       },
+  //     ],
+  //   })
+  try {
+
+
+
+    const orders = await model.order.findAll({
+      attributes: [],
       include: [
         {
-          model: model.order,
-          include: [
-            {
-              model: model.customer,
-              attributes: ["name"],
-              as:"customer",
-            },
-          ],
-          attributes: { exclude: ["createdAt", "updatedAt", "id"] },
-         
+          model: model.customer,
+          as: "customer",
+          attributes: ["name"],
         },
         {
-          model: model.products,
-          attributes: { exclude: ["createdAt", "updatedAt", "id"] },
+          model: model.productOrder,
+          attributes: ["quantity", "unitPrice", "total"],
+          include: [
+            {
+              model: model.products,
+              attributes: ["productName"],
+            },
+          ],
         },
       ],
-      attributes: {
-        exclude: ["createdAt", "updatedAt"],
-      },
-    })
-    .then((result) => {
-      res.status(200).json({
-        result,
-      });
-    })
-
-    .catch((error) => {
-      res.status(500).json({
-        message: error.message,
-        error,
-      });
     });
+
+    // Now, calculate the grand total for each order
+    const ordersWithGrandTotal = orders.map((order) => {
+      const grandTotal = order.productOrders.reduce(
+        (total, productOrder) => total + productOrder.total,
+        0
+      );
+
+      return {
+        ...order.toJSON(),
+        grandTotal,
+      };
+    });
+
+    console.log(ordersWithGrandTotal);
+    return res.status(200).json({
+      ordersWithGrandTotal,
+    });
+
+    // .then((result) => {
+    //   res.status(200).json({
+    //     result,
+    //   });
+    // })
+  }
+  catch (error) {
+    console.log(error.message);
+    res.status(500).json({
+      message: error.message,
+      error,
+    });
+  };
 };
 
 module.exports = {

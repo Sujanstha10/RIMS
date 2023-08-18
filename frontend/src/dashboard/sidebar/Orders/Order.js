@@ -5,9 +5,9 @@ import OrderTable from './OrderTable'
 const Order = () => {
     return (
         <TableWrapper
-            title='Total Suppliers'
+            title='Total Orders'
             addlink='/dashboard/order/add'
-        // link='Add Order'
+            link='Add Order'
         >
             <OrderTable />
         </TableWrapper>

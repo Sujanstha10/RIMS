@@ -16,10 +16,11 @@ module.exports = (sequelize, DataTypes) => {
       });
       order.belongsTo(models.customer, {
         foreignKey: "customerId",
-        as:"customer",
+        as: "customer",
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       });
+      order.hasMany(models.productOrder)
     }
   }
   order.init(
@@ -32,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
-        allowNull:true
+        allowNull: true
       },
     },
     {

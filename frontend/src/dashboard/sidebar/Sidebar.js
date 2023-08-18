@@ -167,6 +167,21 @@ export default function Sidebar() {
             </ul>
 
 
+
+            <ul className='flex flex-col list-none md:flex-col md:min-w-full md:mb-4 mt-4'>
+              <li className='items-center hover:underline'>
+                <Link
+                  className='flex items-center text-sm font-bold uppercase gap-3'
+                  to='/dashboard/suppliers/productsSupplier'
+                >
+
+                  <FaFirstOrder className="text-3xl" />
+                  Products
+                </Link>
+              </li>
+            </ul>
+
+
             {/* <ul className='flex flex-col list-none md:flex-col md:min-w-full md:mb-4 mt-2'>
               <li className='items-center hover:underline'>
                 <Link

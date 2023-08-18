@@ -3,23 +3,20 @@ import { Route, Routes } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import Sidebar from "./sidebar/Sidebar";
 import Dashboardnavbar from "./navbar/Dashboardnavbar";
-import Headerstats from "./components/Headerstats";
+// import Headerstats from "./components/Headerstats";
 import User from "./sidebar/User/User";
 import Product from "./sidebar/Products/Product";
 import AddProduct from "./sidebar/Products/AddProduct";
 import DashboardHome from "./DashboardHome";
 import EditProduct from "./sidebar/Products/EditProduct";
 import AddUser from "./sidebar/User/AddUser";
-import EditUser from "../dashboard/sidebar/User/EditUser";
+import EditUser from '../dashboard/sidebar/User/EditUser'
 import Supplier from "./sidebar/Suppliers/Supplier";
 import AddSupplier from "./sidebar/Suppliers/AddSuplier";
 import EditSupplier from "./sidebar/Suppliers/EditSupplier";
-
-import AddStock from "./sidebar/Products/AddStock";
-
 import Order from "./sidebar/Orders/Order";
 import AddOrder from "./sidebar/Orders/AddOrder";
-
+import ProductsSupplier from "./sidebar/Suppliers/ProductsSupplier";
 const Dashboard = () => {
   const dispatch = useDispatch();
 
@@ -36,7 +33,6 @@ const Dashboard = () => {
               <Route path='/' element={<DashboardHome />} />
               <Route path='/products' element={<Product />} />
               <Route path='/products/add' element={<AddProduct />} />
-              <Route path='/products/stock' element={<AddStock />} />
               <Route path='/products/edit/:id' element={<EditProduct />} />
               <Route path='/user/edit/:id' element={<EditUser />} />
               <Route path='/customers' element={<User />} />
@@ -46,6 +42,7 @@ const Dashboard = () => {
               <Route path='/suppliers/edit/:id' element={<EditSupplier />} />
               <Route path='/orders' element={<Order />} />
               <Route path='/order/add' element={<AddOrder />} />
+              <Route path='/suppliers/productsSupplier' element={<ProductsSupplier />} />
             </Routes>
           </div>
         </div>
