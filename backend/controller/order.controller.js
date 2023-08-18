@@ -1,5 +1,6 @@
 const model = require("../models");
 const order = require("../models/order");
+const productorder = require("../models/productorder");
 const products = require("../models/products");
 
 //[
@@ -134,7 +135,9 @@ const addOrder = async (req, res) => {
           unitPrice: item.unitPrice,
           total: item.unitPrice * item.quantity,
         });
+        // console.log(item)
       });
+
       // console.log(productUpdates[0].total)
         let totalAmt = 0;
       productUpdates.forEach((item) => {
@@ -203,7 +206,7 @@ const addOrder = async (req, res) => {
       } else {
         return res.status(200).json({
           cusotmer:cusotmer,
-          orderPlaced: filteredOrder,
+          orderPlaced: productUpdates,
           message: "Order placed successfully.",
           totalAmt:totalAmt
         });
@@ -218,29 +221,52 @@ const addOrder = async (req, res) => {
 };
 
 const showProductOrder = (req, res) => {
-  model.productOrder
-    .findAll({
-      include: [
-        {
-          model: model.order,
-          include: [
-            {
-              model: model.customer,
-              attributes: ["name"],
-              as:"customer",
-            },
-          ],
-          attributes: { exclude: ["createdAt", "updatedAt", "id"] },
-         
-        },
-        {
-          model: model.products,
-          attributes: { exclude: ["createdAt", "updatedAt", "id"] },
-        },
-      ],
-      attributes: {
-        exclude: ["createdAt", "updatedAt"],
-      },
+  model.productOrder.findAll({
+    attributes:["quantity",'unitPrice','total','createdAt'],
+    include:[{
+              model:model.products,
+              attributes:["productName"],
+             
+            }, 
+            {model:model.order,
+              attributes:["id"],
+              include:[{
+                model:model.customer,
+                as:"customer",
+                attributes:["name"],
+
+              }]
+            }],
+  })
+    .then((result) => {
+      res.status(200).json({
+        result,
+      });
+    })
+
+    .catch((error) => {
+      res.status(500).json({
+        message: error.message,
+        error,
+      });
+    });
+};
+
+
+
+const showProductOrderById = (req, res) => {
+  model.customer
+    .findOne({where:{id:req.params.id},
+      attributes:["name"],
+      include :[{
+        model:model.order,
+        attributes:["id"], 
+        include:[{
+          model:model.products,
+          attributes:["productName"],
+        }]
+      }],   
+      
     })
     .then((result) => {
       res.status(200).json({
@@ -256,7 +282,9 @@ const showProductOrder = (req, res) => {
     });
 };
 
+
 module.exports = {
   addOrder: addOrder,
   showProductOrder: showProductOrder,
+  showProductOrderById
 };
