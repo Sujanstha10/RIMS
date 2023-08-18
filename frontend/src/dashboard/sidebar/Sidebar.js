@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 // import NotificationDropdown from "../../Components/Dropdowns/NotificationDropdown.js";
 // import UserDropdown from "../../Components/Dropdowns/UserDropdown.js";
 // import Spinner from "../../Helper/Spinner.js";
-import { MdOutlineDashboardCustomize } from 'react-icons/md'
+import { MdOutlineDashboardCustomize, MdProductionQuantityLimits } from 'react-icons/md'
 import { FaFirstOrder, FaPersonBooth } from 'react-icons/fa'
 
 export default function Sidebar() {
@@ -175,7 +175,7 @@ export default function Sidebar() {
                   to='/dashboard/suppliers/productsSupplier'
                 >
 
-                  <FaFirstOrder className="text-3xl" />
+                  <MdProductionQuantityLimits className="text-3xl" />
                   Products
                 </Link>
               </li>
