@@ -17,6 +17,7 @@ import EditSupplier from "./sidebar/Suppliers/EditSupplier";
 import Order from "./sidebar/Orders/Order";
 import AddOrder from "./sidebar/Orders/AddOrder";
 import ProductsSupplier from "./sidebar/Suppliers/ProductsSupplier";
+import AddStock from "./sidebar/Products/AddStock";
 const Dashboard = () => {
   const dispatch = useDispatch();
 
@@ -33,6 +34,7 @@ const Dashboard = () => {
               <Route path='/' element={<DashboardHome />} />
               <Route path='/products' element={<Product />} />
               <Route path='/products/add' element={<AddProduct />} />
+              <Route path='/products/stock' element={<AddStock />} />
               <Route path='/products/edit/:id' element={<EditProduct />} />
               <Route path='/user/edit/:id' element={<EditUser />} />
               <Route path='/customers' element={<User />} />
