@@ -4,13 +4,10 @@ import Spinner from "../../../Helper/Spinner";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { ProductAll } from "../../../redux/features/Products/productAction";
-import CustomerForm from "./CustomerForm";
 import { getCustomerById } from "../../../redux/features/Customer/customerAction";
+import { placeOrder } from "../../../redux/features/Order/orderAction";
 
 const AddOrder = ({ color }) => {
-    const [showModal, setShowModal] = useState(false);
-    const [qtyError, setQtyError] = useState('')
-    const [bikeId, setBikeId] = useState();
     const dispatch = useDispatch();
 
     const location = useLocation();
@@ -47,7 +44,7 @@ const AddOrder = ({ color }) => {
                     updatedItems[itemIndex].qtyError = ""; // Clear the error message if quantity is valid
                 }
 
-                updatedItems[itemIndex].quantity = parseInt(quantity) || 0;
+                updatedItems[itemIndex].quantity = parseFloat(quantity) || 0;
             }
 
             return updatedItems;
@@ -57,7 +54,7 @@ const AddOrder = ({ color }) => {
 
 
 
-    const handlePriceChange = (selectedProduct, price) => {
+    const handlePriceChange = (selectedProduct, unitPrice) => {
         console.log('hi');
         console.log(selectedProduct);
         setSelectedItems(prevSelected => {
@@ -65,10 +62,10 @@ const AddOrder = ({ color }) => {
             const itemIndex = updatedItems.findIndex(item => item.productId === selectedProduct.id);
             console.log(updatedItems);
             if (itemIndex !== -1) {
-                updatedItems[itemIndex].price = parseInt(price) || 0;
+                updatedItems[itemIndex].unitPrice = parseFloat(unitPrice) || 0;
             }
             if (itemIndex !== -1) {
-                updatedItems[itemIndex].price = parseInt(price) || 0;
+                updatedItems[itemIndex].unitPrice = parseFloat(unitPrice) || 0;
             }
             return updatedItems;
         });
@@ -84,7 +81,7 @@ const AddOrder = ({ color }) => {
         if (isSelected) {
             setSelectedItems(prevSelected => prevSelected.filter(item => item.productId !== selectedProduct.id));
         } else {
-            const newItem = { productId: selectedProduct.id, quantity: 0, price: 0 };
+            const newItem = { productId: selectedProduct.id, quantity: 0, unitPrice: 0 };
             console.log(newItem);
             setSelectedItems(prevSelected => [...prevSelected, newItem]);
         }
@@ -100,7 +97,7 @@ const AddOrder = ({ color }) => {
 
         const filterOrderItems = selectedItems.some((item) => {
             console.log(item);
-            return item.qtyError.length > 0
+            return item.qtyError?.length > 0
         }
         )
         console.log(filterOrderItems);
@@ -108,6 +105,23 @@ const AddOrder = ({ color }) => {
             toast.error("No order placed.")
             return
         }
+        const data = {
+            customerId: id,
+            items: selectedItems
+        }
+
+        const filterOrderItemss = selectedItems.some((item) => {
+            console.log(item);
+            return item.unitPrice <= 0
+        }
+        )
+        console.log(filterOrderItemss);
+        if (filterOrderItemss) {
+            toast.error("Please select price.")
+            return
+        }
+        dispatch(placeOrder(data))
+        console.log(data);
 
 
     }
@@ -253,7 +267,7 @@ const AddOrder = ({ color }) => {
 
                                     <td className='items-center p-4 px-6 text-center align-middle border-t-0 border-l-0 border-r-0 text-md whitespace-nowrap'>
                                         <span className="p-2 font-semibold">Rs.</span>
-                                        <input type="text" className="w-16 px-2 text-center border border-gray-300 rounded-md" value={selectedItems.find(item => item.productId === product.id)?.price || ""}
+                                        <input type="text" className="w-16 px-2 text-center border border-gray-300 rounded-md" value={selectedItems.find(item => item.productId === product.id)?.unitPrice || ""}
                                             onChange={(e) => handlePriceChange(product, e.target.value)} />
 
                                     </td>

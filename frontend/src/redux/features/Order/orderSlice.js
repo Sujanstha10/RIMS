@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { placeOrder } from "./orderAction";
 
 const initialState = {
   loading: false,
@@ -6,6 +7,7 @@ const initialState = {
   success: false,
   allOrders: [],
   orderById: null,
+  placedOrder: {}
 };
 
 const orderSlice = createSlice({
@@ -13,53 +15,32 @@ const orderSlice = createSlice({
   initialState,
   reducers: {
     clearFields: (state, { payload }) => {
-      (state.success = false),
-        (state.loading = false),
-        (state.error = false),
-        (state.orderById = null);
+      state.success = false;
+      state.loading = false;
+      state.error = false;
+      state.userById = null;
     },
   },
   extraReducers: {
-    //all the orders by id
-    [AddOrder.pending]: (state) => {
+    //place order
+    [placeOrder.pending]: (state) => {
       state.loading = true;
       state.error = null;
     },
-    [AddOrder.fulfilled]: (state, { payload }) => {
+    [placeOrder.fulfilled]: (state, { payload }) => {
       state.loading = false;
       state.success = true;
+      console.log(payload)
+      state.placedOrder = payload
+
     },
-    [AddOrder.rejected]: (state, { payload }) => {
+    [placeOrder.rejected]: (state, { payload }) => {
       state.loading = false;
       state.error = payload;
     },
 
-    // //all orders
-    [AllOrder.pending]: (state) => {
-      state.loading = true;
-      state.error = null;
-    },
-    [AllOrder.fulfilled]: (state, { payload }) => {
-      state.loading = false;
-      state.allOrders = payload;
-    },
-    [AllOrder.rejected]: (state, { payload }) => {
-      state.loading = false;
-      state.error = payload;
-    },
 
-    //all the orders by id
-    [AllOrderById.pending]: (state) => {
-      state.loading = true;
-      state.error = null;
-    },
-    [AllOrderById.fulfilled]: (state, { payload }) => {
-      state.loading = false;
-      state.orderById = payload;
-    },
-    [AllOrderById.rejected]: (state, { payload }) => {
-      state.loading = false;
-      state.error = payload;
-    },
   },
 });
+export const { clearFields } = orderSlice.actions;
+export default orderSlice.reducer;

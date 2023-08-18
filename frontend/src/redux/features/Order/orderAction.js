@@ -1,29 +1,23 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import Http from "../../../Helper/Spinner";
+import Http from "../../../Helper/Http";
+import { toast } from "react-hot-toast";
 
-export const AllOrder = createAsyncThunk(
-  "order/all",
-  async (alluser, { rejectWithValue }) => {
+export const placeOrder = createAsyncThunk(
+  "order/create",
+  async (values, { rejectWithValue }) => {
     try {
-      const data = await Http.get("/userorder/");
-      return data.data.data;
-    } catch (error) {
-      if (error.response && error.response.data.message) {
-        return rejectWithValue(error.response.data.message);
-      } else {
-        return rejectWithValue(error.message);
-      }
-    }
-  }
-);
-export const AllOrderById = createAsyncThunk(
-  "order/getById",
-  async (id, { rejectWithValue }) => {
-    try {
-      const data = await Http.get(`/userorder/${id}`);
+      // console.log(values);
+      const order = values.items
+      console.log(values.items);
+      console.log(order);
+      const data = await Http.post(`/order/new/${values.customerId}`, { order });
+      console.log(data);
+      toast.success("Order placed successfully")
       return data.data;
     } catch (error) {
+      console.log(error);
       if (error.response && error.response.data.message) {
+
         return rejectWithValue(error.response.data.message);
       } else {
         return rejectWithValue(error.message);
@@ -32,55 +26,4 @@ export const AllOrderById = createAsyncThunk(
   }
 );
 
-/* export const AllOrderUser = createAsyncThunk(
-  "order/user/all",
-  async (id, { rejectWithValue }) => {
-    try {
-      const data = await Http.get(`/userservice/user/${id}`);
-      return data.data.rows;
-    } catch (error) {
-      if (error.response && error.response.data.message) {
-        return rejectWithValue(error.response.data.message);
-      } else {
-        return rejectWithValue(error.message);
-      }
-    }
-  }
-); */
 
-/* export const EditOrderStatus = createAsyncThunk(
-  "order/edit/id",
-  async (item, { rejectWithValue }) => {
-    try {
-      const statusData = {
-        status: item.status,
-      };
-      const data = await Http.patch(
-        `/userorder/update/${item.id}`,
-        statusData
-      );
-      return data.data;
-    } catch (error) {
-      if (error.response && error.response.data.message) {
-        return rejectWithValue(error.response.data.message);
-      } else {
-        return rejectWithValue(error.message);
-      }
-    }
-  }
-); */
-export const AddOrder = createAsyncThunk(
-  "order/add/",
-  async (formData, { rejectWithValue }) => {
-    try {
-      const data = await Http.post("/userorder/add/", formData);
-      return data.data;
-    } catch (error) {
-      if (error.response && error.response.data.message) {
-        return rejectWithValue(error.response.data.message);
-      } else {
-        return rejectWithValue(error.message);
-      }
-    }
-  }
-);
