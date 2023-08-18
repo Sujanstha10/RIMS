@@ -44,6 +44,7 @@ const addStock = async (req, res) => {
 const showProductSupplier = (req, res) => {
   model.productSuppliers
     .findAll({
+
       //   // where: { id: req.params.id },
       //   include: [
       //     {
@@ -61,6 +62,25 @@ const showProductSupplier = (req, res) => {
         attributes: ["productName"]
       }],
       attributes: ["remainingQuantity", "createdAt"]
+
+      //   // where: { id: req.params.id },
+      //   include: [
+      //     {
+      //       model: model.products,
+      //       attributes: ["productName"  , ],
+      //       through: { attributes: ["remainingQuantity"] }, // Include remainingQuantity from the junction table
+      //     },
+      //   ],
+      //   attributes: ["supplierName"],
+      // include: [{
+      //     model: model.suppliers,
+      //     attributes: ["supplierName"]
+      //   }, {
+      //     model: model.products,
+      //     attributes: ["productName"]
+      //   }],
+      //   attributes: ["remainingQuantity"]
+
     })
 
 
@@ -85,8 +105,12 @@ const showProductSupplierById = (req, res) => {
       include: [
         {
           model: model.products,
+
           attributes: ["productName"],
           through: { attributes: ["remainingQuantity"], as: "qunatity" }, // Include remainingQuantity from the junction table
+
+
+
         },
       ],
       attributes: ["supplierName"],
