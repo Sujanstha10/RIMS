@@ -39,7 +39,7 @@ const Headerstats = () => {
                   statArrow='up'
                   statPercent={count?.customerPercentage?.percentage.toFixed(2)}
                   statPercentColor='text-emerald-500'
-                  statDescripiron='Since last month'
+                  statDescripiron='Since last week'
                   statIconName='far fa-chart-bar'
                   statIconColor='bg-red-500'
                 />
@@ -63,7 +63,7 @@ const Headerstats = () => {
                   statArrow='down'
                   statPercent={count?.orderPercentage?.percentage.toFixed(2)}
                   statPercentColor='text-orange-500'
-                  statDescripiron='Since yesterday'
+                  statDescripiron='Since last week'
                   statIconName='fas fa-users'
                   statIconColor='bg-pink-500'
                 />
@@ -76,7 +76,7 @@ const Headerstats = () => {
 
                   statArrow='up'
                   statPercentColor='text-emerald-500'
-                  statDescripiron='Since last month'
+                  statDescripiron='Since last week'
                   statIconName='fas fa-percent'
                   statIconColor='bg-teal-400'
                 />

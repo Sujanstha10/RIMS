@@ -105,25 +105,25 @@ const ProductsSupplier = () => {
 
                                 <td className='items-center px-6 text-left align-middle border-t-0 border-l-0 border-r-0 text-md whitespace-nowrap'>
                                     <div className='flex'>
-                                        {data?.supplier.supplierName}
+                                        {data?.supplier?.supplierName}
                                     </div>
                                 </td>
 
                                 <td className='items-center p-4 px-6 text-left align-middle border-t-0 border-l-0 border-r-0 text-md whitespace-nowrap'>
                                     <div className='flex w-44'>
-                                        {data.product.productName}
+                                        {data.product?.productName}
                                     </div>
                                 </td>
 
                                 <td className='items-center p-4 px-6 text-left align-middle border-t-0 border-l-0 border-r-0 text-md whitespace-nowrap'>
                                     <div className='flex'>
-                                        {data.remainingQuantity}
+                                        {data?.remainingQuantity}
                                     </div>
                                 </td>
 
 
                                 <td className='p-4 px-6 text-xs align-middle border-t-0 border-l-0 border-r-0 whitespace-nowrap  text-center'>
-                                    {formatDate(data.date)}
+                                    {formatDate(data?.date)}
 
 
                                 </td>
