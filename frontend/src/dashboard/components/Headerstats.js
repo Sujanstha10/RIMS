@@ -37,7 +37,7 @@ const Headerstats = () => {
                   statSubtitle='Customers'
                   statTitle={count?.customerPercentage?.totalCount}
                   statArrow='up'
-                  statPercent={count?.customerPercentage?.percentage.toFixed(2)}
+                  statPercent={count?.customerPercentage?.percentage?.toFixed(2)}
                   statPercentColor='text-emerald-500'
                   statDescripiron='Since last week'
                   statIconName='far fa-chart-bar'
@@ -49,7 +49,7 @@ const Headerstats = () => {
                   statSubtitle='Products '
                   statTitle={count?.productsPercentage?.totalCount}
                   statArrow='down'
-                  statPercent={count?.productsPercentage?.percentage.toFixed(2)}
+                  statPercent={count?.productsPercentage?.percentage?.toFixed(2)}
                   statPercentColor='text-red-500'
                   statDescripiron='Since last week'
                   statIconName='fas fa-chart-pie'
@@ -61,7 +61,7 @@ const Headerstats = () => {
                   statSubtitle='Orders '
                   statTitle={count?.orderPercentage?.totalCount}
                   statArrow='down'
-                  statPercent={count?.orderPercentage?.percentage.toFixed(2)}
+                  statPercent={count?.orderPercentage?.percentage?.toFixed(2)}
                   statPercentColor='text-orange-500'
                   statDescripiron='Since last week'
                   statIconName='fas fa-users'
@@ -72,7 +72,7 @@ const Headerstats = () => {
                 <CardStats
                   statSubtitle='Suppliers'
                   statTitle={count?.supplierPercentage?.totalCount}
-                  statPercent={count?.supplierPercentage?.percentage.toFixed(2)}
+                  statPercent={count?.supplierPercentage?.percentage?.toFixed(2)}
 
                   statArrow='up'
                   statPercentColor='text-emerald-500'

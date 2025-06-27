@@ -45,15 +45,7 @@ const showProductSupplier = (req, res) => {
   model.productSuppliers
     .findAll({
 
-      //   // where: { id: req.params.id },
-      //   include: [
-      //     {
-      //       model: model.products,
-      //       attributes: ["productName"  , ],
-      //       through: { attributes: ["remainingQuantity"] }, // Include remainingQuantity from the junction table
-      //     },
-      //   ],
-      //   attributes: ["supplierName"],
+
       include: [{
         model: model.suppliers,
         attributes: ["supplierName"]
@@ -63,23 +55,6 @@ const showProductSupplier = (req, res) => {
       }],
       attributes: ["remainingQuantity", "createdAt"]
 
-      //   // where: { id: req.params.id },
-      //   include: [
-      //     {
-      //       model: model.products,
-      //       attributes: ["productName"  , ],
-      //       through: { attributes: ["remainingQuantity"] }, // Include remainingQuantity from the junction table
-      //     },
-      //   ],
-      //   attributes: ["supplierName"],
-      // include: [{
-      //     model: model.suppliers,
-      //     attributes: ["supplierName"]
-      //   }, {
-      //     model: model.products,
-      //     attributes: ["productName"]
-      //   }],
-      //   attributes: ["remainingQuantity"]
 
     })
 

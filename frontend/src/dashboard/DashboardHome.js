@@ -1,3 +1,4 @@
+//src/dashboard/dashboardhome.js
 import React, { useState } from "react";
 import { BarChart, XAxis, YAxis, CartesianGrid, Tooltip, Bar } from 'recharts';
 import Headerstats from "./components/Headerstats";

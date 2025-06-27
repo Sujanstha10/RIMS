@@ -1,3 +1,4 @@
+//src/dashboard/common/Delete.js
 import React from "react";
 
 const Delete = ({showModal,setShowModal}) => {
